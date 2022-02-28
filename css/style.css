@@ -172,3 +172,8 @@ div.back ul.social li {
 div.back ul.social li:first-child {
     margin-top: 2rem;
 }
+
+small {
+    color: red;
+    font-weight: bolder;
+}
