@@ -84,21 +84,20 @@ let onChangeInput = (idName) => {
 };
 
 let submitForm = () => {
-    if (nameFlag === 1 && emailFlag === 1 && phoneNumberFlag === 1 && addressFlag === 1) {
-        let jsonData = {
-            'name': nameInput.value,
-            'email': emailInput.value,
-            'phone-number': phoneNumberInput.value,
-            'address': addressInput.value,
-        }
-
-        axios.post(
-            '/create',
-            jsonData
-        ).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        })
+    alert("welcome");
+    let jsonData = {
+        'name': nameInput.value,
+        'email': emailInput.value,
+        'phone-number': phoneNumberInput.value,
+        'address': addressInput.value,
     }
+
+    axios.post(
+        '/create',
+        jsonData
+    ).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+        console.log(err);
+    });
 };
