@@ -13,8 +13,6 @@ let addressFlag = 0;
 let nameFlag = 0;
 let phoneNumberFlag = 0;
 
-var fs = require('fs');
-
 let onChangeInput = (idName) => {
     if (idName === 'email') {
         let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
