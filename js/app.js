@@ -92,14 +92,13 @@ let submitForm = () => {
             'address': addressInput.value,
         }
 
-        let fileName = "/js" + nameInput.value + '.json';
-        var file = new File([JSON.stringify(jsonData)], fileName, { type: 'application/json' });
-        const fs = require('fs');
-
-        var anchor = document.createElement("a");
-        anchor.href = URL.createObjectURL(file);
-        anchor.download = fileName;
-        anchor.click();
-        console.log(file);
+        axios.post(
+            '/create',
+            jsonData
+        ).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 };
