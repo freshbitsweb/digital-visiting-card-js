@@ -1,2 +1,7 @@
 [build]
     functions="functions"
+
+[[redirects]]
+    from = "/create"
+    to = "/.netlify/functions/create.js"
+    status = 200
