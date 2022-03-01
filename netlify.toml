@@ -3,5 +3,5 @@
 
 [[redirects]]
     from = "/create"
-    to = "/.netlify/functions/create.js"
+    to = "/functions/create.js"
     status = 200
