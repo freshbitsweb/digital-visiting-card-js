@@ -144,14 +144,21 @@ let submitForm = async() => {
         'github': githubInput.value,
     }
 
-    axios.post(
-        '/.netlify/functions/create',
-        jsonData, {
-        'Content-Type': 'application/json'
-        }
+    axios.get(
+        '/.netlify/git/github/contents/',
     ).then((res) => {
         console.log(res);
     }).catch((err) => {
         console.log(err);
     });
+    // axios.post(
+    //     '/.netlify/functions/create',
+    //     jsonData, {
+    //     'Content-Type': 'application/json'
+    //     }
+    // ).then((res) => {
+    //     console.log(res);
+    // }).catch((err) => {
+    //     console.log(err);
+    // });
 };
