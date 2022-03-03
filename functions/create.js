@@ -18,6 +18,7 @@ exports.handler = async function (event, context) {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
+				'Authorization': 'Bearer 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',
 				'Content-Type': 'application/json'
 			},
 			data: data
