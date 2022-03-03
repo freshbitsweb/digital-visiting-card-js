@@ -18,24 +18,20 @@ exports.handler = async function (event, context) {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
-				'Authorization': 'Bearer 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',
+				'Authorization': 'Bearer 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',
 				'Content-Type': 'application/json'
 			},
 			data: data
 		}
 
-		axios(config)
-			.then(function (response) {
-				response = response;
-			})
-			.catch(function (error) {
-				response = error;
-			});
-
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: response,
+				msg: await axios(config).then((res) => {
+					return res.data;
+				}).catch((err) => {
+					return err;
+				}),
 			}),
 		};
 	} catch (err) {
