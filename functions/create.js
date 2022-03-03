@@ -13,12 +13,13 @@ exports.handler = async function (event, context) {
 
 		let name = (data1.first_name).replace(" ", "_");
 		let fileName = name + time + ".json";
+		let token = "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";
 
 		var config = {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
-				'Authorization': 'Bearer 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',
+				'Authorization': `Bearer ${token}`,
 				'Content-Type': 'application/json'
 			},
 			data: data
