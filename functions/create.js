@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
 
 		let name = (data1.first_name).replace(" ", "_");
 		let fileName = name + time + ".json";
-		let token = "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";
+		let token = "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";
 
 		var config = {
 			method: 'put',
