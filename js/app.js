@@ -144,9 +144,16 @@ let submitForm = async() => {
         'github': githubInput.value,
     }
 
-    axios.get(
-        '/.netlify/git/github/contents/',
-    ).then((res) => {
+    var config = {
+        method: 'get',
+        url: '/.netlify/git/github/contents/',
+        headers: {
+            'Authorization': 'Bearer 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',
+            'Content-Type': 'application/json'
+        },
+    }
+
+    axios(config).then((res) => {
         console.log(res);
     }).catch((err) => {
         console.log(err);
