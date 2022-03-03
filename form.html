@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://unpkg.com/vue@3"></script>
 </head>
+
 <body>
 	<div class="container-fluid" id="app">
 		<div class="row mt-5">
@@ -22,25 +24,35 @@
 		<div class="row">
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
-					<input type="text"
-						class="form-control"
-						name="name"
-						id="name"
-						placeholder="name.."
-					>
-					<label for="name">Name</label>
-					<small id="name-validation"></small>
+					<input type="text" class="form-control" name="name" id="first-name" placeholder="first name.."
+						onfocusout="onChangeInput('first-name')">
+					<label for="first-name">First Name</label>
+					<small id="first-name-validation"></small>
 				</div>
 			</div>
 
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
-					<input type="email"
-						class="form-control"
-						name="email"
-						id="email"
-						placeholder="email.."
-					>
+					<input type="text" class="form-control" name="name" id="last-name" placeholder="last name.."
+						onfocusout="onChangeInput('last-name')">
+					<label for="last-name">Last Name</label>
+					<small id="last-name-validation"></small>
+				</div>
+			</div>
+
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" name="name" id="title" placeholder="title.."
+						onfocusout="onChangeInput('title')">
+					<label for="title">Title (Optional)</label>
+					<small id="title-name-validation"></small>
+				</div>
+			</div>
+
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-floating mb-3">
+					<input type="email" class="form-control" name="email" id="email" placeholder="email.."
+						onfocusout="onChangeInput('email')">
 					<label for="email">Email</label>
 					<small id="email-validation"></small>
 				</div>
@@ -50,12 +62,8 @@
 		<div class="row">
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
-					<input type="text"
-						class="form-control"
-						name="address"
-						id="phone-number"
-						placeholder="78945613.."
-					>
+					<input type="text" class="form-control" name="address" id="phone-number" placeholder="78945613.."
+						onfocusout="onChangeInput('phone-number')">
 					<label for="phone-number">Phone Number</label>
 					<small id="phone-number-validation"></small>
 				</div>
@@ -63,21 +71,24 @@
 
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
-					<input type="text"
-						class="form-control"
-						name="address"
-						id="address"
-						placeholder="xyz abc.."
-					>
-					<label for="address">Address</label>
-					<small id="address-validation"></small>
+					<input type="website" class="form-control" name="website" id="website" placeholder="abc.com"
+						onfocusout="onChangeInput('website')">
+					<label for="website">Website</label>
+					<small id="website-validation"></small>
+				</div>
+			</div>
+
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-floating mb-3">
+					<input type="website" class="form-control" name="github" id="github-link" placeholder="xyz abc.."
+						onfocusout="onChangeInput('github')">
+					<label for="github-link">Github</label>
+					<small id="github-validation"></small>
 				</div>
 			</div>
 
 			<div>
-				<button onclick="submitForm()"
-					class="btn btn-primary"
-				>
+				<button onclick="submitForm()" class="btn btn-primary">
 					Submit
 				</button>
 			</div>
@@ -87,4 +98,5 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="js/app.js"></script>
 </body>
+
 </html>
