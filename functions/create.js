@@ -1,5 +1,5 @@
 const axios = require("axios");
-// const btoa = require("btoa");
+const btoa = require("btoa");
 exports.handler = async function (event, context) {
 	try {
 		var response;
@@ -18,7 +18,7 @@ exports.handler = async function (event, context) {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
-				'Authorization': 'Bearer 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',
+				'Authorization': 'Bearer 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',
 				'Content-Type': 'application/json'
 			},
 			data: data
