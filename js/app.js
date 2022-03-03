@@ -139,7 +139,7 @@ let submitForm = async() => {
         'first_name': firstNameInput.value,
         'last_name': lastNameInput.value,
         'email': emailInput.value,
-        'phone-number': phoneNumberInput.value,
+        'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,
         'github': githubInput.value,
     }
