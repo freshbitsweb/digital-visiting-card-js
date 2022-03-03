@@ -1,4 +1,5 @@
 const axios = require("axios");
+const btoa = require("btoa");
 exports.handler = async function (event, context) {
 	try {
 		var response;
