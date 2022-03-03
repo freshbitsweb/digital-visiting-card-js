@@ -7,7 +7,7 @@ exports.handler = async function (event, context) {
 		var data1 = JSON.parse(event.body);
 		var data = JSON.stringify({
 			"message": "created the file...",
-			"content": Buffer.from(JSON.stringify(data1), 'binary').toString('base64'),
+			"content": btoa(JSON.stringify(data1)),
 		});
 
 		let name = (data1.first_name).replace(" ", "_");
