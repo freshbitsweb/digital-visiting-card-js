@@ -5,7 +5,7 @@ exports.handler = async function (event, context) {
 			method: 'get',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json',
 			headers: {
-				'Authorization': 'Bearer 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',
+				'Authorization': 'Bearer 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',
 				'Content-Type': 'application/json'
 			}
 		}
@@ -13,9 +13,9 @@ exports.handler = async function (event, context) {
 		return {
 			statusCode: 200,
 			body: JSON.stringify({
-				data: await getData('Readme.md').then(function(result) {
-                    console.log(result.content)
-                }),
+				data: await axios(config).then((res) => {
+					return res.data;
+				}),
 			}),
 		};
   	} catch (err) {
