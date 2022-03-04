@@ -145,7 +145,7 @@ let submitForm = async() => {
     }
 
     axios.post(
-        '/.netlify/functions/read'
+        '/.netlify/functions/create'
     ).then((res) => {
         console.log(res);
     }).catch((err) => {
