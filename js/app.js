@@ -143,7 +143,7 @@ let submitForm = async() => {
         'website': websiteInput.value,
         'github': githubInput.value,
     }
-    
+
     axios.post(
         '/.netlify/functions/create',
         jsonData, {
@@ -151,6 +151,29 @@ let submitForm = async() => {
         }
     ).then((res) => {
         console.log(res);
+    }).catch((err) => {
+        console.log(err);
+    });
+};
+
+let axiosFunction = async () => {
+    var data = JSON.stringify({
+        "message": "created the file...",
+        "content": "amtnZnR5ZGZ2",
+    });
+    const d = new Date();
+    let time = d.getTime();
+    let fileName = "name" + time + ".json";
+    let token = "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";
+    var config = {
+        method: 'get',
+        url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/Readme1.txt',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    await axios(config).then((res) => {
+        console.log(res.data);
     }).catch((err) => {
         console.log(err);
     });
