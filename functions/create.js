@@ -4,7 +4,6 @@ const btoa = require("btoa");
 exports.handler = async function (event, context) {
 	try {
 		const { identity, user } = context.clientContext;
-		let user = netlifyIdentity.currentUser()
     	let token = user.token.access_token
     	var bearer = 'Bearer ' + token
 		const d = new Date();
