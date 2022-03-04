@@ -1,8 +1,12 @@
 const axios = require("axios");
 const btoa = require("btoa");
+
 exports.handler = async function (event, context) {
 	try {
-		var response;
+		const { identity, user } = context.clientContext;
+		let user = netlifyIdentity.currentUser()
+    	let token = user.token.access_token
+    	var bearer = 'Bearer ' + token
 		const d = new Date();
 		let time = d.getTime();
 		var data1 = JSON.parse(event.body);
@@ -13,13 +17,12 @@ exports.handler = async function (event, context) {
 
 		let name = (data1.first_name).replace(" ", "_");
 		let fileName = name + time + ".json";
-		let token = "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";
 
 		var config = {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
-				'Authorization': `Bearer ${token}`,
+				'Authorization': bearer,
 				'Content-Type': 'application/json'
 			},
 			data: data
