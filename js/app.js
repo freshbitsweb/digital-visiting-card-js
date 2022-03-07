@@ -145,12 +145,10 @@ let submitForm = async() => {
     }
 
     const user = netlifyIdentity.currentUser();
-    // let token = user.token.access_token;
-    // console.log(user);
     axios.post(
         '/.netlify/functions/create',
             jsonData,
-        
+
     ).then((res) => {
         console.log(res);
     }).catch((err) => {
