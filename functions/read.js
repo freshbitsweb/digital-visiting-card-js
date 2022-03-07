@@ -1,10 +1,9 @@
 const axios = require("axios");
 exports.handler = async function (event, context) {
 	try {
-		let response = null;
 		var config = {
 			method: 'get',
-			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/ff.json',
+			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/',
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -15,6 +14,8 @@ exports.handler = async function (event, context) {
 			body: JSON.stringify({
 				data: await axios(config).then((res) => {
 					return res.data;
+				}).catch((err) => {
+					return err;
 				}),
 			}),
 		};
