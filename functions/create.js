@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
 		let time = d.getTime();
 		var data1 = JSON.parse(event.body);
 		var data = JSON.stringify({
-			"message": "created the file..." + time,
+			"message": "created the file...",
 			"content": base64.encode(JSON.stringify(data1)),
 		});
 
@@ -21,7 +21,6 @@ exports.handler = async function (event, context) {
 			headers: {
 				'Authorization': 'Bearer ' + process.env.TOKEN,
 				'Content-Type': 'application/json',
-				'sha': "6d0d9bfaea2693d278d2616fd83b785acee7b029"
 			},
 			data: data
 		}
