@@ -48,5 +48,6 @@ exports.handler = async function (event, context) {
 				msg: err.message,
 			}),
 		};
+
 	}
 };
