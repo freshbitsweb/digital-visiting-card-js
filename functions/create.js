@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
 		let time = d.getTime();
 		var data1 = JSON.parse(event.body);
 		var data = JSON.stringify({
-			"message": "created the file...",
+			"message": "created the file..." + time,
 			"content": base64.encode(JSON.stringify(data1)),
 		});
 
@@ -19,18 +19,19 @@ exports.handler = async function (event, context) {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
-				'Authorization': 'Bearer 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',
+				'Authorization': 'Bearer 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',
 				'Content-Type': 'application/json'
 			},
 			data: data
 		}
-
 		axios(config)
 			.then(function (testResponse) {
+				console.log('testResponse');
 				console.log(testResponse);
 				response = testResponse;
 			})
 			.catch(function (error) {
+				console.log(error);
 				response = error;
 			});
 

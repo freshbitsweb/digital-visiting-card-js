@@ -150,8 +150,8 @@ let submitForm = async() => {
             jsonData,
 
     ).then((res) => {
-        console.log(res);
+        //
     }).catch((err) => {
-        console.log(err);
+        //
     });
 };
