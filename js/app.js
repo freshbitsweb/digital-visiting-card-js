@@ -144,13 +144,11 @@ let submitForm = async() => {
         'github': githubInput.value,
     }
 
-    const user = netlifyIdentity.currentUser();
     axios.post(
         '/.netlify/functions/create',
             jsonData,
-
     ).then((res) => {
-        //
+        console.log(res);
     }).catch((err) => {
         //
     });
