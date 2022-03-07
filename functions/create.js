@@ -24,8 +24,23 @@ exports.handler = async function (event, context) {
 			},
 			data: data
 		}
-		console.log('hola');
-		axios(config)
+		console.log('testResponse');
+		await axios(config)
+			.then(function (testResponse) {
+				console.log('testResponse');
+				console.log(testResponse);
+				return testResponse;
+			})
+			.catch(function (error) {
+				console.log('error');
+				console.log(error);
+				return error;
+			});
+
+		return {
+			statusCode: 201,
+			body: JSON.stringify({
+				msg: await axios(config)
 			.then(function (testResponse) {
 				console.log('testResponse');
 				console.log(testResponse);
@@ -35,12 +50,7 @@ exports.handler = async function (event, context) {
 				console.log('error');
 				console.log(error);
 				response = error;
-			});
-
-		return {
-			statusCode: 201,
-			body: JSON.stringify({
-				msg: response,
+			}),
 			}),
 		};
 	} catch (err) {
