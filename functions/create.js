@@ -3,7 +3,6 @@ const base64 = require("base-64");
 
 exports.handler = async function (event, context) {
 	try {
-		var response;
 		const d = new Date();
 		let time = d.getTime();
 		var data1 = JSON.parse(event.body);
@@ -24,33 +23,17 @@ exports.handler = async function (event, context) {
 			},
 			data: data
 		}
-		console.log('testResponse');
-		await axios(config)
-			.then(function (testResponse) {
-				console.log('testResponse');
-				console.log(testResponse);
-				return testResponse;
-			})
-			.catch(function (error) {
-				console.log('error');
-				console.log(error);
-				return error;
-			});
 
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
 				msg: await axios(config)
-			.then(function (testResponse) {
-				console.log('testResponse');
-				console.log(testResponse);
-				response = testResponse;
-			})
-			.catch(function (error) {
-				console.log('error');
-				console.log(error);
-				response = error;
-			}),
+				.then(function (testResponse) {
+					return testResponse;
+				})
+				.catch(function (error) {
+					return error;
+				}),
 			}),
 		};
 	} catch (err) {
