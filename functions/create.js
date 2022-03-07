@@ -4,11 +4,8 @@ const btoa = require("btoa");
 exports.handler = async function (event, context) {
 	try {
 		const { identity, user } = context.clientContext;
-		console.log(identity);
-		console.log("------------------------");
-		console.log(user);
-    	let token = user.token.access_token
-    	var bearer = 'Bearer ' + token
+		console.log(identity.token);
+    	var bearer = 'Bearer ' + identity.token
 		const d = new Date();
 		let time = d.getTime();
 		var data1 = JSON.parse(event.body);
