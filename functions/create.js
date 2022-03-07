@@ -4,16 +4,21 @@ const { Octokit } = require("@octokit/core");
 
 exports.handler = async function (event, context) {
 	try {
-		let data = event.body;
-		
-		const auth = new Octokit({ auth: `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` });
+		let data = JSON.parse(event.body);
+		const date = new Date();
+		let time = date.getTime();
+
+		let name = (data.first_name).replace(" ", "_");
+		let fileName = name + time + ".json";
+		const auth = new Octokit({ auth: `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` });
 
 		let res = await auth.request('PUT /repos/{owner}/{repo}/contents/{path}', {
 			owner: 'misusonu18',
 			repo: 'digital-visiting-card-js',
-			path: 'js/json/ff.json',
+			path: 'js/json/' + fileName,
 			message: 'message',
-			content: btoa('hola')
+			content: btoa(JSON.stringify(data))
+
 		});
 
 		console.log(res);
