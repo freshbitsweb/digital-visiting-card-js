@@ -4,12 +4,10 @@ const btoa = require("btoa");
 exports.handler = async function (event, context) {
 	try {
 		const { identity, user } = context.clientContext;
-		var bearer = 'Bearer ' + identity.token
-		console.log(event.body);
-		console.log(JSON.parse(event.body));
+		var bearer = 'Bearer ' + identity.token;
 		const d = new Date();
 		let time = d.getTime();
-		var data1 = JSON.parse(event.body);
+		// var data1 = JSON.parse(event.body);
 		var data = JSON.stringify({
 			"message": "created the file...",
 			"content": btoa('hola'),
