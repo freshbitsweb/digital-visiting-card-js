@@ -23,5 +23,6 @@ function getTheFileData(fileName) {
         fileName
     ).then((res) => {
         sessionStorage.setItem("fileData", atob(res.data.data.content));
+        window.location('index.html');
     });
 }
