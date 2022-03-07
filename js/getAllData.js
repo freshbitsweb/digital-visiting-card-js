@@ -22,7 +22,8 @@ function getTheFileData(fileName) {
         '/.netlify/functions/readOneFile',
         fileName
     ).then((res) => {
-        sessionStorage.setItem("fileData", atob(res.data.data.content));
-        window.location('index.html');
+        let data = atob(res.data.data.content);
+        sessionStorage.setItem("fileData", data);
+        location.replace('index.html');
     });
 }

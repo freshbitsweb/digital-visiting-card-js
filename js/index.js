@@ -9,14 +9,13 @@ let phoneNumberField = document.getElementById('phone-number');
 
 getFileData = sessionStorage.getItem("fileData");
 getFileData = JSON.parse(getFileData);
-firstField.innerHTML = getFileData.name;
-lastField.innerHTML = getFileData.name;
-titleField.innerHTML = getFileData.name;
-websiteField.innerHTML = getFileData.name;
-gmailField.innerHTML = getFileData.name;
+console.log(getFileData);
+firstField.innerHTML = getFileData.first_name;
+lastField.innerHTML = getFileData.last_name;
+titleField.innerHTML = getFileData.title ? getFileData.title : '';
+gmailField.innerHTML = getFileData.email;
 gmailField.href = getFileData.email;
-phoneNumberField.innerHTML = getFileData.name;
-githubField.innerHTML = getFileData.name;
-githubField.href = getFileData.name;
+phoneNumberField.innerHTML = getFileData.phone_number;
+githubField.href = getFileData.github;
 
 card.classList.remove('d-none');
