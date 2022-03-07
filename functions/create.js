@@ -8,23 +8,23 @@ exports.handler = async function (event, context) {
 		const d = new Date();
 		let time = d.getTime();
 		// var data1 = JSON.parse(event.body);
-		var data = JSON.stringify({
+		var data = {
 			"message": "created the file...",
 			"content": btoa('hola'),
-		});
+		};
 
 		// let name = (data1.first_name).replace(" ", "_");
 		let name = "hello";
 		let fileName = name + time + ".json";
 
 		var config = {
-			method: 'put',
+			method: 'PUT',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
 			headers: {
 				'Authorization': bearer,
 				'Content-Type': 'application/json'
 			},
-			data: data
+			data: JSON.stringify(data)
 		}
 
 		return {
