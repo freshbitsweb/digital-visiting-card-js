@@ -1,34 +1,43 @@
 const axios = require("axios");
-const btoa = require("btoa");
-const { Octokit } = require("@octokit/core");
+const base64 = require("base-64");
 
 exports.handler = async function (event, context) {
 	try {
-		let responseData = JSON.parse(event.body);
-		const date = new Date();
-		let time = date.getTime();
-
-		// let token = 'Bearer ' + responseData.token;
-
-		let name = (responseData.data.first_name).replace(" ", "_");
-		let fileName = name + time + ".json";
-		const auth = new Octokit({ auth: `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` });
-
-		let res = await auth.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-			owner: 'misusonu18',
-			repo: 'digital-visiting-card-js',
-			path: 'js/json/' + fileName,
-			message: 'message',
-			content: btoa(JSON.stringify(responseData.data))
-
+		var response;
+		const d = new Date();
+		let time = d.getTime();
+		var data1 = JSON.parse(event.body);
+		var data = JSON.stringify({
+			"message": "created the file...",
+			"content": base64.encode(JSON.stringify(data1)),
 		});
 
-		console.log(res);
+		let name = (data1.first_name).replace(" ", "_");
+		let fileName = name + time + ".json";
+
+		var config = {
+			method: 'put',
+			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
+			headers: {
+				'Authorization': 'Bearer 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',
+				'Content-Type': 'application/json'
+			},
+			data: data
+		}
+
+		axios(config)
+			.then(function (testResponse) {
+				console.log(testResponse);
+				response = testResponse;
+			})
+			.catch(function (error) {
+				response = error;
+			});
 
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: res
+				msg: response,
 			}),
 		};
 	} catch (err) {

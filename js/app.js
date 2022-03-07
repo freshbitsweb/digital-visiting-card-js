@@ -148,9 +148,9 @@ let submitForm = async() => {
     // let token = user.token.access_token;
     // console.log(user);
     axios.post(
-        '/.netlify/functions/create', {
-            data: jsonData,
-        }
+        '/.netlify/functions/create',
+            jsonData,
+        
     ).then((res) => {
         console.log(res);
     }).catch((err) => {
