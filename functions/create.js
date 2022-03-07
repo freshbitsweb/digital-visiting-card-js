@@ -15,8 +15,6 @@ exports.handler = async function (event, context) {
 		let name = (data1.first_name).replace(" ", "_");
 		let fileName = name + time + ".json";
 
-		console.log(process.env.TOKEN);
-
 		var config = {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
@@ -26,6 +24,7 @@ exports.handler = async function (event, context) {
 			},
 			data: data
 		}
+		console.log('hola');
 		axios(config)
 			.then(function (testResponse) {
 				console.log('testResponse');
@@ -33,6 +32,7 @@ exports.handler = async function (event, context) {
 				response = testResponse;
 			})
 			.catch(function (error) {
+				console.log('error');
 				console.log(error);
 				response = error;
 			});
