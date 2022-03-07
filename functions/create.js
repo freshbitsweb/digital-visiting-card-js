@@ -1,41 +1,27 @@
 const axios = require("axios");
 const btoa = require("btoa");
+const { Octokit } = require("@octokit/core");
 
 exports.handler = async function (event, context) {
 	try {
-		const { identity, user } = context.clientContext;
-		var bearer = 'Bearer ' + identity.token;
-		const d = new Date();
-		let time = d.getTime();
-		// var data1 = JSON.parse(event.body);
-		var data = {
-			"message": "created the file...",
-			"content": btoa('hola'),
-		};
+		let data = event.body;
+		
+		const auth = new Octokit({ auth: `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` });
 
-		// let name = (data1.first_name).replace(" ", "_");
-		let name = "hello";
-		let fileName = name + time + ".json";
+		let res = await auth.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+			owner: 'misusonu18',
+			repo: 'digital-visiting-card-js',
+			path: 'js/json/ff.json',
+			message: 'message',
+			content: btoa('hola')
+		});
 
-		var config = {
-			method: 'PUT',
-			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
-			headers: {
-				'Authorization': bearer,
-				'Content-Type': 'application/json',
-				'Accept': 'application/vnd.github.v3+json'
-			},
-			data: JSON.stringify(data)
-		}
+		console.log(res);
 
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: await axios(config).then((res) => {
-					return res.data;
-				}).catch((err) => {
-					return err;
-				}),
+				msg: res
 			}),
 		};
 	} catch (err) {
