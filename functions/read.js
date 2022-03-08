@@ -1,9 +1,10 @@
 const axios = require("axios");
 exports.handler = async function (event, context) {
 	try {
+		let folderName = event.body.folder_name;
 		var config = {
 			method: 'get',
-			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/',
+			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/'+ folderName +'/',
 			headers: {
 				'Content-Type': 'application/json'
 			}

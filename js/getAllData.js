@@ -1,5 +1,7 @@
 axios.post(
-    '/.netlify/functions/read',
+    '/.netlify/functions/read', {
+        folder_name: userName
+    }
 ).then((res) => {
     let allData = res.data.data;
     allData.forEach(element => {
@@ -29,8 +31,10 @@ axios.post(
 
 function getTheFileData(fileName) {
     axios.post(
-        '/.netlify/functions/readOneFile',
-        fileName
+        '/.netlify/functions/readOneFile', {
+            file_name: fileName,
+            folder_name: userName
+        }
     ).then((res) => {
         let data = atob(res.data.data.content);
         sessionStorage.setItem("fileData", data);

@@ -5,18 +5,19 @@ exports.handler = async function (event, context) {
 	try {
 		const d = new Date();
 		let time = d.getTime();
-		var data1 = JSON.parse(event.body);
+		var responseData = JSON.parse(event.body.data);
+		var folderName = event.body.folder_name;
 		var data = JSON.stringify({
 			"message": "created the file...",
-			"content": base64.encode(JSON.stringify(data1)),
+			"content": base64.encode(JSON.stringify(responseData)),
 		});
 
-		let name = (data1.first_name).replace(" ", "_");
+		let name = (responseData.first_name).replace(" ", "_");
 		let fileName = name + time + ".json";
 
 		var config = {
 			method: 'put',
-			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/json/' + fileName,
+			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
 			headers: {
 				'Authorization': 'Bearer ' + process.env.TOKEN,
 				'Content-Type': 'application/json',

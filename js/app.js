@@ -28,8 +28,9 @@ let netlifyIdentityLogout = () => {
 	netlifyIdentity.logout();
 };
 
-const user = netlifyIdentity.currentUser();
-console.log(user);
+const user = localStorage.getItem('gotrue.user');
+var userEmail = JSON.parse(user).email;
+var userName = userEmail.split("@")[0];
 
 if (!user) {
 	netlifyIdentity.open();

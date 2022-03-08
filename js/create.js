@@ -146,7 +146,10 @@ let submitForm = async() => {
 
     axios.post(
         '/.netlify/functions/create',
-            jsonData,
+            {
+                data: jsonData,
+                folder_name: userName,
+            },
     ).then((res) => {
         console.log(res);
     }).catch((err) => {
