@@ -24,8 +24,6 @@ exports.handler = async function (event, context) {
 			data: data
 		}
 
-		console.log(process.env.TOKEN);
-		console.log(data1);
 		var response;
 
 		await axios(config)
@@ -36,11 +34,10 @@ exports.handler = async function (event, context) {
 				response = error;
 			});
 
-
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: response
+				msg: (response.data.content.name == fileName) ? "Successfull File Created" : "Something Went Wrong",
 			}),
 		};
 	} catch (err) {
