@@ -26,20 +26,20 @@ exports.handler = async function (event, context) {
 			data: data
 		}
 
-		var response;
+		var responseMessage;
 
 		await axios(config)
 			.then(function (testResponse) {
-				response = testResponse;
+				responseMessage = testResponse;
 			})
 			.catch(function (error) {
-				response = error;
+				responseMessage = error;
 			});
 
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: (response.data.content.name == fileName) ? "Successfull File Created" : "Something Went Wrong",
+				msg: (responseMessage.data.content.name == fileName) ? "Successfull File Created" : "Something Went Wrong",
 			}),
 		};
 	} catch (err) {
