@@ -4,6 +4,7 @@ let emailInput = document.getElementById('email');
 let phoneNumberInput = document.getElementById('phone-number');
 let githubInput = document.getElementById('github-link');
 let websiteInput = document.getElementById('website');
+let sha = document.getElementById('sha');
 
 let firstNameValidation = document.getElementById('first-name-validation');
 let lastNameValidation = document.getElementById('last-name-validation');
@@ -148,7 +149,7 @@ let submitForm = async() => {
         '/.netlify/functions/update', {
             'data': jsonData,
             'folder_name': userName,
-            'sha': sha
+            'sha': sha.value
         }
     ).then((res) => {
         console.log(res);
