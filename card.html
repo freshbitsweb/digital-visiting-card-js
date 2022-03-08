@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Digital Visiting Card</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="index.html">Home</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link d-hidden" href="form.html">Form</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <div class="business-card" id="card" ontouchstart="this.classList.toggle('hover');">
+		<div class="flipper">
+			<div class="front">
+				<div class="name">
+					<span class="first" id="first">Mishal</span>
+					<span class="last" id="last">Leo</span>
+					<span class="title" id="title">Web Developer</span>
+				</div>
+			</div>
+			<div class="back">
+				<div class="container-sm">
+					<figure class="logo-white"></figure>
+				</div>
+				<div class="container-lg">
+					<ul class="social fa-ul">
+						<li>
+							<i class="fa fa-li fa-globe"></i>
+							<a href="https://mishalvparmar.netlify.app" id="website">Website</a>
+						</li>
+
+						<li>
+							<i class="fa fa-li fa-envelope"></i>
+							<a href="mailto:misusonu18@gmail.com" id="gmail">misusonu18@gmail.com</a>
+						</li>
+
+						<li>
+							<i class="fa fa-li fa-phone"></i>
+							<a href="tel:+917487841125" id="phone-number">(+91) 748-784-1125</a>
+						</li>
+
+						<li>
+							<i class="fa fa-li fa-github"></i>
+							<a href="https://github.com/misusonu18" id="github">GitHub</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script src="js/card.js"></script>
+</body>
+</html>
