@@ -165,7 +165,7 @@ let displayTheData = () => {
     console.log(getFileDataResponse);
     console.log("---------------------------------");
     console.log(sha);
-    console.log("---------------------------------");
+    console.log("-----------------------------------");
     console.log(fileData);
 
     firstNameInput.value = fileData.first_name;
