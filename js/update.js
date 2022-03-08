@@ -159,7 +159,7 @@ let submitForm = async() => {
 
 let displayTheData = () => {
     getFileDataResponse = sessionStorage.getItem("file-data");
-    getFileDataResponse = JSON.parse(getFileData);
+    getFileDataResponse = JSON.parse(getFileDataResponse);
     let fileData = atob(getFileDataResponse.content);
     let sha = getFileDataResponse.sha;
     console.log(getFileDataResponse);
