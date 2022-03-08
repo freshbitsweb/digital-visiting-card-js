@@ -24,6 +24,10 @@ exports.handler = async function (event, context) {
 			data: data
 		}
 
+		console.log(process.env.TOKEN);
+		console.log(data1);
+		
+
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
