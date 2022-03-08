@@ -5,8 +5,9 @@ exports.handler = async function (event, context) {
 	try {
 		const d = new Date();
 		let time = d.getTime();
-		var responseData = JSON.parse(event.body.data);
-		var folderName = event.body.folder_name;
+		let response = JSON.parse(event.body);
+		var responseData = responseData.data;
+		var folderName = responseData.folder_name;
 		var data = JSON.stringify({
 			"message": "created the file...",
 			"content": base64.encode(JSON.stringify(responseData)),
@@ -19,7 +20,7 @@ exports.handler = async function (event, context) {
 			method: 'put',
 			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
 			headers: {
-				'Authorization': 'Bearer ' + process.env.TOKEN,
+				'Authorization': 'Bearer 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',
 				'Content-Type': 'application/json',
 			},
 			data: data

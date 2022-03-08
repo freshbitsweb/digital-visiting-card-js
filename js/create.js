@@ -144,12 +144,11 @@ let submitForm = async() => {
         'github': githubInput.value,
     }
 
-    axios.post(
-        '/.netlify/functions/create',
-            {
-                data: jsonData,
-                folder_name: userName,
-            },
+    await axios.post(
+        '/.netlify/functions/create', {
+            'data': jsonData,
+            'folder_name': userName
+        }
     ).then((res) => {
         console.log(res);
     }).catch((err) => {
