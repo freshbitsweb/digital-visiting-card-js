@@ -26,18 +26,21 @@ exports.handler = async function (event, context) {
 
 		console.log(process.env.TOKEN);
 		console.log(data1);
-		
+		var response;
+
+		await axios(config)
+			.then(function (testResponse) {
+				response = testResponse;
+			})
+			.catch(function (error) {
+				response = error;
+			});
+
 
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: await axios(config)
-				.then(function (testResponse) {
-					return testResponse;
-				})
-				.catch(function (error) {
-					return error;
-				}),
+				msg: response
 			}),
 		};
 	} catch (err) {
