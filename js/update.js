@@ -163,6 +163,7 @@ let displayTheData = () => {
     getFileDataResponse = JSON.parse(getFileDataResponse);
     let fileData = JSON.parse(atob(getFileDataResponse.content));
     let sha = getFileDataResponse.sha;
+    sha.value = sha;
     console.log(getFileDataResponse);
     console.log("---------------------------------");
     console.log(sha);
