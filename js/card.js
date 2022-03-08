@@ -9,7 +9,6 @@ let phoneNumberField = document.getElementById('phone-number');
 
 getFileData = sessionStorage.getItem("fileData");
 getFileData = JSON.parse(getFileData);
-console.log(getFileData);
 firstField.innerHTML = getFileData.first_name;
 lastField.innerHTML = getFileData.last_name;
 titleField.innerHTML = getFileData.title ? getFileData.title : '';

@@ -14,7 +14,13 @@ axios.post(
                         <button class="btn btn-outline-primary"
                             onclick="getTheFileData('${name}')"
                         >
-                            click
+                            Click
+                        </button>
+
+                        <button class="btn btn-outline-primary"
+                            onclick="editTheFileData('${name}')"
+                        >
+                            Edit
                         </button>
                     </div>
                 </div>
@@ -39,5 +45,18 @@ function getTheFileData(fileName) {
         let data = atob(res.data.data.content);
         sessionStorage.setItem("fileData", data);
         location.replace('card.html');
+    });
+}
+
+function editTheFileData(fileName) {
+    axios.post(
+        '/.netlify/functions/readOneFile', {
+            file_name: fileName,
+            folder_name: userName
+        }
+    ).then((res) => {
+        let data = res.data.data;
+        sessionStorage.setItem("file-data", data);
+        location.replace('edit.html');
     });
 }

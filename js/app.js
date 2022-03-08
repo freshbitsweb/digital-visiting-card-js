@@ -28,10 +28,17 @@ let netlifyIdentityLogout = () => {
 	netlifyIdentity.logout();
 };
 
-const user = localStorage.getItem('gotrue.user');
-var userEmail = JSON.parse(user).email;
-var userName = userEmail.split("@")[0];
+var userEmail, userName;
 
-if (!user) {
-	netlifyIdentity.open();
+let checkAuth = () => {
+	const user = localStorage.getItem('gotrue.user');
+
+	if (!user) {
+		netlifyIdentity.open();
+		return;
+	}
+	userEmail = JSON.parse(user).email;
+	userName = userEmail.split("@")[0];
 }
+
+checkAuth();
