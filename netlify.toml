@@ -1,5 +1,2 @@
 [functions]
     directory = "functions"
-
-[context.production]
-    netlify_build_debug = true
