@@ -6,8 +6,8 @@ exports.handler = async function (event, context) {
 		const d = new Date();
 		let time = d.getTime();
 		let response = JSON.parse(event.body);
-		var responseData = responseData.data;
-		var folderName = responseData.folder_name;
+		var responseData = response.data;
+		var folderName = response.folder_name;
 		var data = JSON.stringify({
 			"message": "created the file...",
 			"content": base64.encode(JSON.stringify(responseData)),
