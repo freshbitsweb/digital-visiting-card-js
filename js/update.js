@@ -168,11 +168,6 @@ let displayTheData = () => {
     let fileName = getFileDataResponse.name;
     fileNameInput.value = fileName;
     sha.value = sha;
-    console.log(getFileDataResponse);
-    console.log("---------------------------------");
-    console.log(sha);
-    console.log("-----------------------------------");
-    console.log(fileData);
 
     firstNameInput.value = fileData.first_name;
     lastNameInput.value = fileData.last_name;
