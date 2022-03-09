@@ -148,9 +148,12 @@ let submitForm = async() => {
         '/.netlify/functions/checkThePhoneNumber',
     ).then((res) => {
         let data = res.data.data.content;
-        // checkThePhoneNumber(JSON.parse(data));
+        let data1 = JSON.parse(atob(data));
+        console.log(data1);
+        console.log(typeof(data1));
         console.log(JSON.parse(atob(data)));
         console.log(typeof(JSON.parse(atob(data))));
+        checkThePhoneNumber(data1);
     }).catch((err) => {
         //
     });
@@ -169,6 +172,5 @@ let submitForm = async() => {
 
 let checkThePhoneNumber = (phoneNumberFileData) => {
     console.log('fucn');
-    let phoneData = JSON.parse(atob(phoneNumberFileData.content));
-    console.log(phoneData);
+    console.log(phoneNumberFileData);
 }
