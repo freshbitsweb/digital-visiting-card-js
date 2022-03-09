@@ -164,10 +164,10 @@ let displayTheData = () => {
     getFileDataResponse = sessionStorage.getItem("file-data");
     getFileDataResponse = JSON.parse(getFileDataResponse);
     let fileData = JSON.parse(atob(getFileDataResponse.content));
-    let sha = getFileDataResponse.sha;
+    let shaValue = getFileDataResponse.sha;
     let fileName = getFileDataResponse.name;
     fileNameInput.value = fileName;
-    sha.value = sha;
+    sha.value = shaValue;
 
     firstNameInput.value = fileData.first_name;
     lastNameInput.value = fileData.last_name;
