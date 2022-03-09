@@ -8,9 +8,10 @@
 	<title>Edit Form</title>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css" integrity="sha512-IXuoq1aFd2wXs4NqGskwX2Vb+I8UJ+tGJEu/Dc0zwLNKeQ7CW3Sr6v0yU3z5OQWe3eScVIkER4J9L7byrgR/fA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 </head>
 
 <body>
@@ -92,7 +93,7 @@
 
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
-					<input type="website" class="form-control" name="website" id="website" placeholder="abc.com">
+					<input type="url" class="form-control" name="website" id="website" placeholder="abc.com">
 					<label for="website">Website</label>
 					<small id="website-validation"></small>
 				</div>
@@ -100,7 +101,7 @@
 
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
-					<input type="website" class="form-control" name="github" id="github-link" placeholder="xyz abc..">
+					<input type="url" class="form-control" name="github" id="github-link" placeholder="xyz abc..">
 					<label for="github-link">Github</label>
 					<small id="github-validation"></small>
 				</div>
@@ -115,6 +116,7 @@
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/update.js"></script>
 </body>
