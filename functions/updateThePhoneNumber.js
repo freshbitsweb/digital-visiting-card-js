@@ -35,7 +35,7 @@ exports.handler = async function (event, context) {
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: (responseMessage.data.content.name == fileName) ? "Successfull File Updated" : "Something Went Wrong",
+				msg: (responseMessage.data.content.name == 'phone_number.json') ? "Successfull File Updated" : "Something Went Wrong",
 			}),
 		};
 	} catch (err) {
