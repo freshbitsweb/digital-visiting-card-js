@@ -4,6 +4,7 @@ let emailInput = document.getElementById('email');
 let phoneNumberInput = document.getElementById('phone-number');
 let githubInput = document.getElementById('github-link');
 let websiteInput = document.getElementById('website');
+let titleInput = document.getElementById('title');
 let sha = document.getElementById('sha');
 let fileNameInput = document.getElementById('file-name');
 
@@ -137,6 +138,7 @@ let onChangeInput = (idName) => {
 };
 
 let submitForm = async () => {
+    if (firstNameFlag == 1 )
     await axios.post(
         '/.netlify/functions/getThePhoneNumber',
     ).then((res) => {
@@ -163,6 +165,7 @@ let displayTheData = () => {
 
     firstNameInput.value = fileData.first_name;
     lastNameInput.value = fileData.last_name;
+    titleInput.value = fileData.title ? fileData.title : '';
     emailInput.value = fileData.email;
     phoneNumberInput.value = fileData.phone_number;
     websiteInput.value = fileData.website;
@@ -178,20 +181,37 @@ let updateThePhoneNumber = (shaName, phoneNumberArray) => {
         'sha': shaName,
         'data': phoneNumberArray
     }).then(() => {
+        if (true) {
+            updateData();
+            return;
+        }
         createData();
     });
 }
 
-let createData = async() => {
-    let jsonData = {
-        'first_name': firstNameInput.value,
-        'last_name': lastNameInput.value,
-        'email': emailInput.value,
-        'phone_number': phoneNumberInput.value,
-        'website': websiteInput.value,
-        'github': githubInput.value,
-    }
+ let jsonData = {
+    'first_name': firstNameInput.value,
+    'last_name': lastNameInput.value,
+    'email': emailInput.value,
+    'phone_number': phoneNumberInput.value,
+    'website': websiteInput.value,
+    'github': githubInput.value,
+}
 
+let createData = async() => {
+    await axios.post(
+        '/.netlify/functions/create', {
+            'data': jsonData,
+            'folder_name': userName
+        }
+    ).then((res) => {
+        location.reload('index.html');
+    }).catch((err) => {
+        //
+    });
+}
+
+let updateData = async() => {
     await axios.post(
         '/.netlify/functions/update', {
             'data': jsonData,

@@ -55,6 +55,6 @@ function editTheFileData(fileName) {
     ).then((res) => {
         let data = res.data.data;
         sessionStorage.setItem("file-data", JSON.stringify(data));
-        location.replace('edit.html');
+        location.replace('manage.html');
     });
 }
