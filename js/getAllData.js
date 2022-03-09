@@ -33,8 +33,6 @@ axios.post(
     console.log(err);
 });
 
-
-
 function getTheFileData(fileName) {
     axios.post(
         '/.netlify/functions/readOneFile', {
