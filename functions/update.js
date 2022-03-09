@@ -9,14 +9,12 @@ exports.handler = async function (event, context) {
 		var responseData = response.data;
 		var folderName = response.folder_name;
         var sha = response.sha;
+        var fileName = response.file_name;
 		var data = JSON.stringify({
 			"message": "created the file...",
 			"content": base64.encode(JSON.stringify(responseData)),
             "sha": sha
 		});
-
-		let name = (responseData.first_name).replace(" ", "_");
-		let fileName = name + time + ".json";
 
 		var config = {
 			method: 'put',

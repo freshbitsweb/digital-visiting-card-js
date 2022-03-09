@@ -5,6 +5,7 @@ let phoneNumberInput = document.getElementById('phone-number');
 let githubInput = document.getElementById('github-link');
 let websiteInput = document.getElementById('website');
 let sha = document.getElementById('sha');
+let fileNameInput = document.getElementById('file-name');
 
 let firstNameValidation = document.getElementById('first-name-validation');
 let lastNameValidation = document.getElementById('last-name-validation');
@@ -149,6 +150,7 @@ let submitForm = async() => {
         '/.netlify/functions/update', {
             'data': jsonData,
             'folder_name': userName,
+            "file_name": fileNameInput.value,
             'sha': sha.value
         }
     ).then((res) => {
@@ -163,6 +165,8 @@ let displayTheData = () => {
     getFileDataResponse = JSON.parse(getFileDataResponse);
     let fileData = JSON.parse(atob(getFileDataResponse.content));
     let sha = getFileDataResponse.sha;
+    let fileName = getFileDataResponse.name;
+    fileNameInput.value = fileName;
     sha.value = sha;
     console.log(getFileDataResponse);
     console.log("---------------------------------");
