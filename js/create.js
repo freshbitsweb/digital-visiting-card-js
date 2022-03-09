@@ -134,11 +134,6 @@ let onChangeInput = (idName) => {
     }
 };
 
-let checkThePhoneNumber = (phoneNumberFileData) => {
-    let phoneData = JSON.parse(atob(phoneNumberFileData.content));
-    console.log(phoneData);
-}
-
 let submitForm = async() => {
     let jsonData = {
         'first_name': firstNameInput.value,
@@ -152,9 +147,10 @@ let submitForm = async() => {
     await axios.post(
         '/.netlify/functions/checkThePhoneNumber',
     ).then((res) => {
-        let data = res.data.data;
-        console.log(JSON.stringify(data));
-        checkThePhoneNumber(JSON.parse(data));
+        let data = res.data.data.content;
+        // checkThePhoneNumber(JSON.parse(data));
+        console.log(JSON.parse(atob(data)));
+        console.log(typeof(JSON.parse(atob(data))));
     }).catch((err) => {
         //
     });
@@ -170,3 +166,9 @@ let submitForm = async() => {
     //     //
     // });
 };
+
+let checkThePhoneNumber = (phoneNumberFileData) => {
+    console.log('fucn');
+    let phoneData = JSON.parse(atob(phoneNumberFileData.content));
+    console.log(phoneData);
+}
