@@ -1,4 +1,4 @@
-let navbarHtml = `
+var navbarHtml = `
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Digital Visiting Card</a>

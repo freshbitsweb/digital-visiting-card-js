@@ -136,27 +136,19 @@ let onChangeInput = (idName) => {
     }
 };
 
-let submitForm = async() => {
-    let jsonData = {
-        'first_name': firstNameInput.value,
-        'last_name': lastNameInput.value,
-        'email': emailInput.value,
-        'phone_number': phoneNumberInput.value,
-        'website': websiteInput.value,
-        'github': githubInput.value,
-    }
-
+let submitForm = async () => {
     await axios.post(
-        '/.netlify/functions/update', {
-            'data': jsonData,
-            'folder_name': userName,
-            "file_name": fileNameInput.value,
-            'sha': sha.value
-        }
+        '/.netlify/functions/getThePhoneNumber',
     ).then((res) => {
-        console.log(res);
+        let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
+        let shaName = res.data.data.sha;
+
+        phoneNumberArray.includes(parseInt(phoneNumberInput.value)) ?
+            phoneNumberValidation.innerHTML = 'Phone Number is already taken.' :
+            updateThePhoneNumber(shaName, phoneNumberArray)
+        ;
     }).catch((err) => {
-        //
+        console.log(err);
     });
 };
 
@@ -178,3 +170,38 @@ let displayTheData = () => {
 }
 
 displayTheData();
+
+let updateThePhoneNumber = (shaName, phoneNumberArray) => {
+    phoneNumberArray.push(parseInt(phoneNumberInput.value));
+    axios.post(
+        '/.netlify/functions/updateThePhoneNumber', {
+        'sha': shaName,
+        'data': phoneNumberArray
+    }).then(() => {
+        createData();
+    });
+}
+
+let createData = async() => {
+    let jsonData = {
+        'first_name': firstNameInput.value,
+        'last_name': lastNameInput.value,
+        'email': emailInput.value,
+        'phone_number': phoneNumberInput.value,
+        'website': websiteInput.value,
+        'github': githubInput.value,
+    }
+
+    await axios.post(
+        '/.netlify/functions/update', {
+            'data': jsonData,
+            'folder_name': userName,
+            "file_name": fileNameInput.value,
+            'sha': sha.value
+        }
+    ).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+        //
+    });
+}

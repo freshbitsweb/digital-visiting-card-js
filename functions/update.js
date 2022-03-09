@@ -4,7 +4,6 @@ const base64 = require("base-64");
 exports.handler = async function (event, context) {
 	try {
 		let response = JSON.parse(event.body);
-		console.log(response);
 		var responseData = response.data;
 		var folderName = response.folder_name;
         var sha = response.sha;
@@ -38,7 +37,7 @@ exports.handler = async function (event, context) {
 		return {
 			statusCode: 201,
 			body: JSON.stringify({
-				msg: (responseMessage.data.content.name == fileName) ? "Successfull File Created" : "Something Went Wrong",
+				msg: (responseMessage.data.content.name == fileName) ? "Successfull File Updated" : "Something Went Wrong",
 			}),
 		};
 	} catch (err) {

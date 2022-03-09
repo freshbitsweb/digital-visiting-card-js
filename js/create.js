@@ -135,6 +135,33 @@ let onChangeInput = (idName) => {
 };
 
 let submitForm = async() => {
+    await axios.post(
+        '/.netlify/functions/getThePhoneNumber',
+    ).then((res) => {
+        let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
+        let shaName = res.data.data.sha;
+
+        phoneNumberArray.includes(parseInt(phoneNumberInput.value)) ?
+            phoneNumberValidation.innerHTML = 'Phone Number is already taken.' :
+            updateThePhoneNumber(shaName, phoneNumberArray)
+        ;
+    }).catch((err) => {
+        console.log(err);
+    });
+};
+
+let updateThePhoneNumber = (shaName, phoneNumberArray) => {
+    phoneNumberArray.push(parseInt(phoneNumberInput.value));
+    axios.post(
+        '/.netlify/functions/updateThePhoneNumber', {
+        'sha': shaName,
+        'data': phoneNumberArray
+    }).then(() => {
+        createData();
+    });
+}
+
+let createData = async() => {
     let jsonData = {
         'first_name': firstNameInput.value,
         'last_name': lastNameInput.value,
@@ -145,32 +172,13 @@ let submitForm = async() => {
     }
 
     await axios.post(
-        '/.netlify/functions/checkThePhoneNumber',
+        '/.netlify/functions/create', {
+            'data': jsonData,
+            'folder_name': userName
+        }
     ).then((res) => {
-        let data = res.data.data.content;
-        let data1 = JSON.parse(atob(data));
-        console.log(data1);
-        console.log(typeof(data1));
-        console.log(JSON.parse(atob(data)));
-        console.log(typeof(JSON.parse(atob(data))));
-        checkThePhoneNumber(data1);
+        console.log(res);
     }).catch((err) => {
         //
     });
-
-    // await axios.post(
-    //     '/.netlify/functions/create', {
-    //         'data': jsonData,
-    //         'folder_name': userName
-    //     }
-    // ).then((res) => {
-    //     console.log(res);
-    // }).catch((err) => {
-    //     //
-    // });
-};
-
-let checkThePhoneNumber = (phoneNumberFileData) => {
-    console.log('fucn');
-    console.log(phoneNumberFileData);
 }
