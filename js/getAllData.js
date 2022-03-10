@@ -4,6 +4,15 @@ axios.post(
     }
 ).then((res) => {
     let allData = res.data.data;
+    if (Object.keys(allData).length === 0) {
+        let html = `
+            <div class='col'>
+                <p>No Data Found</p>
+            </div>
+        `
+        document.getElementById('row').innerHTML = html;
+        return;
+    }
     allData.forEach(element => {
         let name = element.name;
         let html = `
