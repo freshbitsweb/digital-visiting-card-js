@@ -122,6 +122,8 @@ let checkValidation = () => {
             phoneNumberFlag = 1;
         }
     }
+
+    submitForm();
 };
 
 let submitForm = async () => {
@@ -189,29 +191,38 @@ let updateThePhoneNumber = (shaName, phoneNumberArray) => {
     });
 }
 
- let jsonData = {
-    'first_name': firstNameInput.value,
-    'last_name': lastNameInput.value,
-    'email': emailInput.value,
-    'phone_number': phoneNumberInput.value,
-    'website': websiteInput.value,
-    'github': githubInput.value,
-}
+let createData = async () => {
+    let jsonData = {
+        'first_name': firstNameInput.value,
+        'last_name': lastNameInput.value,
+        'email': emailInput.value,
+        'phone_number': phoneNumberInput.value,
+        'website': websiteInput.value,
+        'github': githubInput.value,
+    };
 
-let createData = async() => {
     await axios.post(
         '/.netlify/functions/create', {
             'data': jsonData,
             'folder_name': userName
         }
     ).then((res) => {
-        location.reload('index.html');
+        window.location.href = 'index.html';
     }).catch((err) => {
         //
     });
 }
 
-let updateData = async() => {
+let updateData = async () => {
+    let jsonData = {
+        'first_name': firstNameInput.value,
+        'last_name': lastNameInput.value,
+        'email': emailInput.value,
+        'phone_number': phoneNumberInput.value,
+        'website': websiteInput.value,
+        'github': githubInput.value,
+    };
+
     await axios.post(
         '/.netlify/functions/update', {
             'data': jsonData,
@@ -221,7 +232,7 @@ let updateData = async() => {
         }
     ).then((res) => {
         localStorage.removeItem('file-data');
-        location.reload('index.html');
+        window.location.href = 'index.html';
     }).catch((err) => {
         //
     });

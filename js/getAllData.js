@@ -4,12 +4,12 @@ axios.post(
     }
 ).then((res) => {
     let allData = res.data.data;
-    if (Object.keys(allData).length === 0) {
+    if (allData.status == 404) {
         let html = `
             <div class='col'>
-                <p>No Data Found</p>
+                <p class="h1">No Data Found</p>
             </div>
-        `
+        `;
         document.getElementById('row').innerHTML = html;
         return;
     }

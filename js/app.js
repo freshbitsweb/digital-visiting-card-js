@@ -17,6 +17,10 @@ let checkAuth = () => {
 
 checkAuth();
 
+let removeLocalStorageData = () => {
+	localStorage.removeItem('file-data');
+}
+
 var navbarHtml = `
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
@@ -33,7 +37,7 @@ var navbarHtml = `
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link d-hidden" href="manage.html">Form</a>
+                        <a class="nav-link d-hidden" href="manage.html" onclick="removeLocalStorageData()">Form</a>
                     </li>
                 </ul>
 				<div class="dropdown ms-auto">
