@@ -145,7 +145,6 @@ let submitForm = async () => {
             updateData();
 
         }).catch((err) => {
-            console.log(err);
         });
         return;
     }
@@ -195,6 +194,7 @@ let createData = async () => {
     let jsonData = {
         'first_name': firstNameInput.value,
         'last_name': lastNameInput.value,
+        'title': titleInput.value,
         'email': emailInput.value,
         'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,
@@ -217,6 +217,7 @@ let updateData = async () => {
     let jsonData = {
         'first_name': firstNameInput.value,
         'last_name': lastNameInput.value,
+        'title': titleInput.value,
         'email': emailInput.value,
         'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,

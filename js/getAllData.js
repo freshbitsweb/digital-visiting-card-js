@@ -39,7 +39,6 @@ axios.post(
         document.getElementById('row').innerHTML += html;
     });
 }).catch((err) => {
-    console.log(err);
 });
 
 function getTheFileData(fileName) {
