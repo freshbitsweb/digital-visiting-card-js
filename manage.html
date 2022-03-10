@@ -8,35 +8,16 @@
 	<title>Form</title>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 	<link rel="stylesheet" href="css/style.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Digital Visiting Card</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="index.html">Home</a>
-					</li>
+	<div id="dynamic-body">
 
-					<li class="nav-item">
-						<a class="nav-link d-hidden" href="form.html">Form</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	<div data-netlify-identity-menu></div>
+	</div>
 
 	<div class="container-fluid" id="app">
 		<div class="row mt-5">
@@ -45,16 +26,18 @@
 			</p>
 		</div>
 
-		<div class="row">
+		<div class="row d-flex">
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<input type="hidden" id="sha">
+				<input type="hidden" id="file-name">
 				<div class="form-floating mb-3">
 					<input type="text"
-                        class="form-control"
-                        name="name"
-                        id="first-name"
-                        placeholder="first name.."
-                        onfocusout="onChangeInput('first-name')"
-                    >
+						class="form-control"
+						name="name"
+						id="first-name"
+						placeholder="first name.."
+						required
+					>
 					<label for="first-name">First Name</label>
 					<small id="first-name-validation"></small>
 				</div>
@@ -63,12 +46,12 @@
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
 					<input type="text"
-                        class="form-control"
-                        name="name"
-                        id="last-name"
-                        placeholder="last name.."
-                        onfocusout="onChangeInput('last-name')"
-                    >
+						class="form-control"
+						name="name"
+						id="last-name"
+						placeholder="last name.."
+						required
+					>
 					<label for="last-name">Last Name</label>
 					<small id="last-name-validation"></small>
 				</div>
@@ -77,11 +60,11 @@
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
 					<input type="text"
-                        class="form-control"
-                        name="name"
-                        id="title"
-                        placeholder="title.."
-                    >
+						class="form-control"
+						name="name"
+						id="title"
+						placeholder="title.."
+					>
 					<label for="title">Title (Optional)</label>
 					<small id="title-name-validation"></small>
 				</div>
@@ -90,28 +73,34 @@
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
 					<input type="email"
-                        class="form-control"
-                        name="email"
-                        id="email"
-                        placeholder="email.."
-                        onfocusout="onChangeInput('email')"
-                    >
+						class="form-control"
+						name="email"
+						id="email"
+						placeholder="email.."
+						required
+					>
 					<label for="email">Email</label>
 					<small id="email-validation"></small>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" name="address" id="phone-number" placeholder="78945613.." required>
+					<label for="phone-number">Phone Number</label>
+					<small id="phone-number-validation"></small>
+				</div>
+			</div>
+
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
 					<input type="website"
-                        class="form-control"
-                        name="website"
-                        id="website"
-                        placeholder="abc.com"
-                        onfocusout="onChangeInput('website')"
-                    >
+						class="form-control"
+						name="website"
+						id="website"
+						placeholder="abc.com"
+						required
+					>
 					<label for="website">Website</label>
 					<small id="website-validation"></small>
 				</div>
@@ -120,19 +109,19 @@
 			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="form-floating mb-3">
 					<input type="website"
-                        class="form-control"
-                        name="github"
-                        id="github-link"
-                        placeholder="xyz abc.."
-                        onfocusout="onChangeInput('github')"
-                    >
+						class="form-control"
+						name="github"
+						id="github-link"
+						placeholder="xyz abc.."
+						required
+					>
 					<label for="github-link">Github</label>
 					<small id="github-validation"></small>
 				</div>
 			</div>
 
 			<div>
-				<button onclick="submitForm()" class="btn btn-primary">
+				<button type="submit" onclick="submitForm()" class="btn btn-primary">
 					Submit
 				</button>
 			</div>
