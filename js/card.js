@@ -9,7 +9,7 @@ let phoneNumberField = document.getElementById('phone-number');
 let whatsapp = document.getElementById('whatsapp');
 
 
-getFileData = sessionStorage.getItem("fileData");
+getFileData = sessionStorage.getItem("file-data-card");
 getFileData = JSON.parse(getFileData);
 firstField.innerHTML = getFileData.first_name;
 lastField.innerHTML = getFileData.last_name;

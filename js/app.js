@@ -51,5 +51,5 @@ var navbarHtml = `
 		</div>
 	</nav>
 `;
-let body = document.getElementById('dynamic-body');
+let body = document.getElementById('dynamic-navbar');
 body.innerHTML = navbarHtml;
