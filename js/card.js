@@ -21,5 +21,3 @@ phoneNumberField.href = 'tel:' + getFileData.phone_number;
 gmailField.href = 'mailto:' + getFileData.email;
 githubField.href = getFileData.github;
 websiteField.href = getFileData.website
-
-card.classList.remove('d-none');

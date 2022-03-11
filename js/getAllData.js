@@ -7,6 +7,7 @@ axios.post(
     if (allData.status == 404) {
         let html = `
             <div class='col'>
+                <a href="manage.html" class="btn btn-outline-primary"> Add New Data </a>
                 <p class="h1">No Data Found</p>
             </div>
         `;
