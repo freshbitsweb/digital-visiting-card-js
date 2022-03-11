@@ -1,11 +1,17 @@
 let netlifyIdentityLogout = () => {
 	netlifyIdentity.logout();
+	checkAuth();
 };
 
-var userEmail, userName;
+let netlifyIdentityLogin = () => {
+	checkAuth();
+}
+
+
+var userEmail, userName, user;
 
 let checkAuth = () => {
-	const user = localStorage.getItem('gotrue.user');
+	user = localStorage.getItem('gotrue.user');
 
 	if (!user) {
 		netlifyIdentity.open();
@@ -37,18 +43,10 @@ var navbarHtml = `
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link d-hidden" href="manage.html" onclick="removeLocalStorageData()">Form</a>
+                        <a class="nav-link d-hidden" href="manage.html" onclick="removeLocalStorageData()">Add Data</a>
                     </li>
                 </ul>
-				<div class="dropdown ms-auto">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-						<i class="fa fa-user"></i>
-						<span id="login-username">${userEmail}</span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a class="dropdown-item" href="#" onclick="netlifyIdentityLogout()">Logout</a></li>
-					</ul>
-				</div>
+				<div data-netlify-identity-menu></div>
 			</div>
 		</div>
 	</nav>
