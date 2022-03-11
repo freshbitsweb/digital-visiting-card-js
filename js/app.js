@@ -3,10 +3,15 @@ let netlifyIdentityLogout = () => {
 	checkAuth();
 };
 
-var userEmail, userName;
+let netlifyIdentityLogin = () => {
+	checkAuth();
+}
+
+
+var userEmail, userName, user;
 
 let checkAuth = () => {
-	const user = localStorage.getItem('gotrue.user');
+	user = localStorage.getItem('gotrue.user');
 
 	if (!user) {
 		netlifyIdentity.open();
@@ -47,7 +52,22 @@ var navbarHtml = `
 						<span id="login-username">${userEmail}</span>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a class="dropdown-item" href="#" onclick="netlifyIdentityLogout()">Logout</a></li>
+						`
+						if (!user) {
+							`
+							<li>
+								<a class="dropdown-item" href="#" onclick="netlifyIdentityLogin()">Login</a>
+							</li>
+							`
+						}
+						else {
+							`
+							<li>
+								<a class="dropdown-item" href="#" onclick="netlifyIdentityLogout()">Logout</a>
+							</li>
+							`
+						}
+						`
 					</ul>
 				</div>
 			</div>
