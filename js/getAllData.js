@@ -38,8 +38,7 @@ axios.post(
 
         document.getElementById('row').innerHTML += html;
     });
-}).catch((err) => {
-});
+}).catch((err) => {});
 
 function getTheFileData(fileName) {
     axios.post(
