@@ -1,12 +1,3 @@
-let netlifyIdentityLogout = () => {
-    netlifyIdentity.logout();
-    checkAuth();
-};
-
-let netlifyIdentityLogin = () => {
-    checkAuth();
-}
-
 
 var userEmail, userName, user;
 
@@ -21,10 +12,26 @@ let checkAuth = () => {
     userName = userEmail.split("@")[0];
 }
 
-checkAuth();
+window.onload = function () {
+    checkAuth();
+}
 
 let removeLocalStorageData = () => {
     localStorage.removeItem('file-data');
+}
+
+var loader = document.querySelector("#loading");
+
+var displayLoading = () => {
+    loader.classList.add("display");
+
+    setTimeout(() => {
+        loader.classList.remove("display");
+    }, 5000);
+}
+
+var hideLoading = () => {
+    loader.classList.remove("display");
 }
 
 var navbarHtml = `
