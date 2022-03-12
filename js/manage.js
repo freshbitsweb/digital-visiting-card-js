@@ -9,7 +9,8 @@ let sha = document.getElementById('sha');
 let fileNameInput = document.getElementById('file-name');
 let getFileDataResponse = sessionStorage.getItem("file-data");
 let fileName = '',
-	phoneNumberTemp = '';
+    phoneNumberTemp = '';
+let submitButton = document.querySelector("#submit-button");
 
 let firstNameValidation = document.getElementById('first-name-validation');
 let lastNameValidation = document.getElementById('last-name-validation');
@@ -27,202 +28,209 @@ let githubFlag = false;
 
 let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 let nameRegex = /^[a-zA-Z ]{2,30}$/;
-let websiteRegex = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+let websiteRegex = /^(http(s)?:\/\/.)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\\/\\/=]*)$/gi;
 let phoneRegex = /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g;
+let githubRegex = /^(https:\/\/)github.com[:/](.*)$/g;
 
 let checkValidation = () => {
-	if (emailInput.value === '') {
-		emailValidation.innerText = 'Please Enter Email Address';
-		emailFlag = false;
-	} else {
-		let result = (emailInput.value).match(emailRegex);
-		if (!result) {
-			emailValidation.innerText = 'Invalid Email Address';
-			emailFlag = false;
-		} else
-			emailValidation.innerText = '';
-		emailFlag = true;
-	}
+    if (emailInput.value === '') {
+        emailValidation.innerText = 'Please Enter Email Address';
+        emailFlag = false;
+    } else {
+        let result = (emailInput.value).match(emailRegex);
+        if (!result) {
+            emailValidation.innerText = 'Invalid Email Address';
+            emailFlag = false;
+        } else
+            emailValidation.innerText = '';
+        emailFlag = true;
+    }
 
-	if (firstNameInput.value === '') {
-		firstNameValidation.innerText = 'Please Enter Name';
-		firstNameFlag = false;
-	} else {
-		let result = (firstNameInput.value).match(nameRegex);
-		if (!result) {
-			firstNameValidation.innerText = 'Invalid First Name';
-			firstNameFlag = false;
-		} else {
-			firstNameValidation.innerText = '';
-			firstNameFlag = true;
-		}
-	}
+    if (firstNameInput.value === '') {
+        firstNameValidation.innerText = 'Please Enter Name';
+        firstNameFlag = false;
+    } else {
+        let result = (firstNameInput.value).match(nameRegex);
+        if (!result) {
+            firstNameValidation.innerText = 'Invalid First Name';
+            firstNameFlag = false;
+        } else {
+            firstNameValidation.innerText = '';
+            firstNameFlag = true;
+        }
+    }
 
-	if (lastNameInput.value === '') {
-		lastNameValidation.innerText = 'Please Enter Name';
-		lastNameFlag = false;
-	} else {
-		let result = (lastNameInput.value).match(nameRegex);
-		if (!result) {
-			lastNameValidation.innerText = 'Invalid First Name';
-			lastNameFlag = false;
-		} else {
-			lastNameValidation.innerText = '';
-			lastNameFlag = true;
-		}
-	}
+    if (lastNameInput.value === '') {
+        lastNameValidation.innerText = 'Please Enter Name';
+        lastNameFlag = false;
+    } else {
+        let result = (lastNameInput.value).match(nameRegex);
+        if (!result) {
+            lastNameValidation.innerText = 'Invalid First Name';
+            lastNameFlag = false;
+        } else {
+            lastNameValidation.innerText = '';
+            lastNameFlag = true;
+        }
+    }
 
-	if (githubInput.value === '') {
-		githubValidation.innerText = 'Please Enter Github Id';
-		githubFlag = false;
-	} else {
-		let result = (githubInput.value).match(websiteRegex);
-		if (!result) {
-			githubValidation.innerText = 'Please Enter Proper Github Id';
-			githubFlag = false;
-		}
-		githubValidation.innerText = '';
-		githubFlag = true;
-	}
+    if (githubInput.value === '') {
+        githubValidation.innerText = 'Please Enter Github Username URL';
+        githubFlag = false;
+    } else {
+        let result = (githubInput.value).match(githubRegex);
+        if (!result) {
+            githubValidation.innerText = 'Please Enter Proper Github URL (Do add the full url include http or https)';
+            githubFlag = false;
+        }
+        githubValidation.innerText = '';
+        githubFlag = true;
+    }
 
-	if (websiteInput.value === '') {
-		websiteValidation.innerText = 'Please Enter Website';
-		websiteFlag = false
-	} else {
-		let result = (websiteInput.value).match(websiteRegex);
-		if (!result) {
-			websiteValidation.innerText = 'Invalid Website';
-			websiteFlag = false
-		} else {
-			websiteValidation.innerText = '';
-			websiteFlag = true;
-		}
-	}
+    if (websiteInput.value === '') {
+        websiteValidation.innerText = 'Please Enter Website';
+        websiteFlag = false
+    } else {
+        let result = (websiteInput.value).match(websiteRegex);
+        if (!result) {
+            websiteValidation.innerText = 'Invalid Website (Do add the full url include http or https)';
+            websiteFlag = false
+        } else {
+            websiteValidation.innerText = '';
+            websiteFlag = true;
+        }
+    }
 
-	if (phoneNumberInput.value === '') {
-		phoneNumberValidation.innerText = 'Please Enter Phone Number';
-		phoneNumberFlag = false;
-	} else {
-		let result = (phoneNumberInput.value).match(phoneRegex);
-		if (!result) {
-			phoneNumberValidation.innerText = 'Invalid Phone Number';
-			phoneNumberFlag = false;
-		} else {
-			phoneNumberValidation.innerText = '';
-			phoneNumberFlag = true;
-		}
-	}
-
-	submitForm();
+    if (phoneNumberInput.value === '') {
+        phoneNumberValidation.innerText = 'Please Enter Phone Number';
+        phoneNumberFlag = false;
+    } else {
+        let result = (phoneNumberInput.value).match(phoneRegex);
+        if (!result) {
+            phoneNumberValidation.innerText = 'Invalid Phone Number';
+            phoneNumberFlag = false;
+        } else {
+            phoneNumberValidation.innerText = '';
+            phoneNumberFlag = true;
+        }
+    }
 };
 
 let submitForm = async () => {
-	if (phoneNumberFlag == true && emailFlag == true && firstNameFlag == true && lastNameFlag == true && websiteFlag == true && githubFlag == true) {
-		await axios.post(
-			'/.netlify/functions/getThePhoneNumber',
-		).then((res) => {
-			let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
-			let shaName = res.data.data.sha;
+    checkValidation();
 
-			if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
-				phoneNumberArray.includes(parseInt(phoneNumberInput.value)) ?
-					phoneNumberValidation.innerHTML = 'Phone Number is already taken.' :
-					updateThePhoneNumber(shaName, phoneNumberArray);
-				return;
-			}
+    if (phoneNumberFlag == true && emailFlag == true && firstNameFlag == true && lastNameFlag == true && websiteFlag == true && githubFlag == true) {
+        submitButton.setAttribute('disabled', true);
+        displayLoading();
+        await axios.post(
+            '/.netlify/functions/getThePhoneNumber',
+        ).then((res) => {
+            let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
+            let shaName = res.data.data.sha;
 
-			updateData();
+            if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
+                if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
+                    phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
+                    submitButton.setAttribute('disabled', false);
+                    hideLoading();
+                    return;
+                }
+                updateThePhoneNumber(shaName, phoneNumberArray);
+                return;
+            }
 
-		}).catch((err) => {});
-		return;
-	}
+            updateData();
 
-	checkValidation();
+        }).catch((err) => {});
+        return;
+    }
 };
 
 let displayTheData = () => {
-	getFileDataResponse = sessionStorage.getItem("file-data");
-	getFileDataResponse = JSON.parse(getFileDataResponse);
-	let fileData = JSON.parse(atob(getFileDataResponse.content));
-	let shaValue = getFileDataResponse.sha;
-	fileName = getFileDataResponse.name;
-	fileNameInput.value = fileName;
-	sha.value = shaValue;
+    getFileDataResponse = sessionStorage.getItem("file-data");
+    getFileDataResponse = JSON.parse(getFileDataResponse);
+    let fileData = JSON.parse(atob(getFileDataResponse.content));
+    let shaValue = getFileDataResponse.sha;
+    fileName = getFileDataResponse.name;
+    fileNameInput.value = fileName;
+    sha.value = shaValue;
 
-	firstNameInput.value = fileData.first_name;
-	lastNameInput.value = fileData.last_name;
-	titleInput.value = fileData.title ? fileData.title : '';
-	emailInput.value = fileData.email;
-	phoneNumberInput.value = fileData.phone_number;
-	phoneNumberTemp = fileData.phone_number;
-	websiteInput.value = fileData.website;
-	githubInput.value = fileData.github;
+    firstNameInput.value = fileData.first_name;
+    lastNameInput.value = fileData.last_name;
+    titleInput.value = fileData.title ? fileData.title : '';
+    emailInput.value = fileData.email;
+    phoneNumberInput.value = fileData.phone_number;
+    phoneNumberTemp = fileData.phone_number;
+    websiteInput.value = fileData.website;
+    githubInput.value = fileData.github;
 }
 
 if (getFileDataResponse) {
-	displayTheData();
+    displayTheData();
 }
 
 let updateThePhoneNumber = (shaName, phoneNumberArray) => {
-	phoneNumberArray.push(parseInt(phoneNumberInput.value));
-	axios.post(
-		'/.netlify/functions/updateThePhoneNumber', {
-			'sha': shaName,
-			'data': phoneNumberArray
-		}).then(() => {
-		if (fileName !== '') {
-			updateData();
-			return;
-		}
-		createData();
-	});
+    phoneNumberArray.push(parseInt(phoneNumberInput.value));
+    axios.post(
+        '/.netlify/functions/updateThePhoneNumber', {
+            'sha': shaName,
+            'data': phoneNumberArray
+        }).then(() => {
+        if (fileName !== '') {
+            updateData();
+            return;
+        }
+        createData();
+    });
 }
 
 let createData = async () => {
-	let jsonData = {
-		'first_name': firstNameInput.value,
-		'last_name': lastNameInput.value,
-		'title': titleInput.value,
-		'email': emailInput.value,
-		'phone_number': phoneNumberInput.value,
-		'website': websiteInput.value,
-		'github': githubInput.value,
-	};
+    let jsonData = {
+        'first_name': firstNameInput.value,
+        'last_name': lastNameInput.value,
+        'title': titleInput.value,
+        'email': emailInput.value,
+        'phone_number': phoneNumberInput.value,
+        'website': websiteInput.value,
+        'github': githubInput.value,
+    };
 
-	await axios.post(
-		'/.netlify/functions/create', {
-			'data': jsonData,
-			'folder_name': userName
-		}
-	).then((res) => {
-		window.location.href = 'index.html';
-	}).catch((err) => {
-		//
-	});
+    displayLoading();
+    await axios.post(
+        '/.netlify/functions/create', {
+            'data': jsonData,
+            'folder_name': userName
+        }
+    ).then((res) => {
+        window.location.href = 'index.html';
+    }).catch((err) => {
+        //
+    });
 }
 
 let updateData = async () => {
-	let jsonData = {
-		'first_name': firstNameInput.value,
-		'last_name': lastNameInput.value,
-		'title': titleInput.value,
-		'email': emailInput.value,
-		'phone_number': phoneNumberInput.value,
-		'website': websiteInput.value,
-		'github': githubInput.value,
-	};
+    let jsonData = {
+        'first_name': firstNameInput.value,
+        'last_name': lastNameInput.value,
+        'title': titleInput.value,
+        'email': emailInput.value,
+        'phone_number': phoneNumberInput.value,
+        'website': websiteInput.value,
+        'github': githubInput.value,
+    };
 
-	await axios.post(
-		'/.netlify/functions/update', {
-			'data': jsonData,
-			'folder_name': userName,
-			"file_name": fileNameInput.value,
-			'sha': sha.value
-		}
-	).then((res) => {
-		localStorage.removeItem('file-data');
-		window.location.href = 'index.html';
-	}).catch((err) => {
-		//
-	});
+    displayLoading();
+    await axios.post(
+        '/.netlify/functions/update', {
+            'data': jsonData,
+            'folder_name': userName,
+            "file_name": fileNameInput.value,
+            'sha': sha.value
+        }
+    ).then((res) => {
+        localStorage.removeItem('file-data');
+        window.location.href = 'index.html';
+    }).catch((err) => {
+        //
+    });
 }
