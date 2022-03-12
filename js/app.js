@@ -1,30 +1,30 @@
 let netlifyIdentityLogout = () => {
-	netlifyIdentity.logout();
-	checkAuth();
+    netlifyIdentity.logout();
+    checkAuth();
 };
 
 let netlifyIdentityLogin = () => {
-	checkAuth();
+    checkAuth();
 }
 
 
 var userEmail, userName, user;
 
 let checkAuth = () => {
-	user = localStorage.getItem('gotrue.user');
+    user = localStorage.getItem('gotrue.user');
 
-	if (!user) {
-		netlifyIdentity.open();
-		return;
-	}
-	userEmail = JSON.parse(user).email;
-	userName = userEmail.split("@")[0];
+    if (!user) {
+        netlifyIdentity.open();
+        return;
+    }
+    userEmail = JSON.parse(user).email;
+    userName = userEmail.split("@")[0];
 }
 
 checkAuth();
 
 let removeLocalStorageData = () => {
-	localStorage.removeItem('file-data');
+    localStorage.removeItem('file-data');
 }
 
 var navbarHtml = `

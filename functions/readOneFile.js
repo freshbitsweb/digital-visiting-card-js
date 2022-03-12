@@ -6,7 +6,7 @@ exports.handler = async function (event, context) {
         let folderName = response.folder_name;
         var config = {
             method: 'get',
-            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/'+ folderName +'/' + fileName,
+            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
             headers: {
                 'Content-Type': 'application/json'
             }

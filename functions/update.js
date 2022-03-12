@@ -6,12 +6,12 @@ exports.handler = async function (event, context) {
 		let response = JSON.parse(event.body);
 		var responseData = response.data;
 		var folderName = response.folder_name;
-        var sha = response.sha;
-        var fileName = response.file_name;
+		var sha = response.sha;
+		var fileName = response.file_name;
 		var data = JSON.stringify({
 			"message": "update the file...",
 			"content": base64.encode(JSON.stringify(responseData)),
-            "sha": sha
+			"sha": sha
 		});
 
 		var config = {

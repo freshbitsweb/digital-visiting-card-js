@@ -5,7 +5,7 @@ exports.handler = async function (event, context) {
 		let folderName = response.folder_name;
 		var config = {
 			method: 'get',
-			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/'+ folderName +'/',
+			url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/',
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -21,7 +21,7 @@ exports.handler = async function (event, context) {
 				}),
 			}),
 		};
-  	} catch (err) {
+	} catch (err) {
 		return {
 			statusCode: 404,
 			body: JSON.stringify({
