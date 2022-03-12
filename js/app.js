@@ -1,5 +1,5 @@
 
-var userEmail, userName, user;
+var userEmail, user;
 
 let checkAuth = () => {
     user = localStorage.getItem('gotrue.user');
@@ -9,7 +9,7 @@ let checkAuth = () => {
         return;
     }
     userEmail = JSON.parse(user).email;
-    userName = userEmail.split("@")[0];
+    localStorage.setItem('username', userEmail.split("@")[0]);
 }
 
 window.onload = function () {
