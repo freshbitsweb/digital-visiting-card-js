@@ -11,6 +11,7 @@ let getFileDataResponse = sessionStorage.getItem("file-data");
 let fileName = '',
     phoneNumberTemp = '';
 let submitButton = document.querySelector("#submit-button");
+let userName = localStorage.getItem('username');
 
 let firstNameValidation = document.getElementById('first-name-validation');
 let lastNameValidation = document.getElementById('last-name-validation');
