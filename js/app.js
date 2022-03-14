@@ -17,7 +17,7 @@ window.onload = function () {
 }
 
 let removeLocalStorageData = () => {
-    localStorage.removeItem('file-data');
+    sessionStorage.removeItem('file-data');
 }
 
 var loader = document.querySelector("#loading");
