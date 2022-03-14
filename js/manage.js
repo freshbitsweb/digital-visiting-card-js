@@ -132,7 +132,7 @@ let submitForm = async () => {
             if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
                 if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
                     phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
-                    submitButton.setAttribute('disabled', false);
+                    submitButton.removeAttribute('disabled');
                     hideLoading();
                     return;
                 }
