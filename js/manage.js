@@ -7,7 +7,7 @@ let websiteInput = document.getElementById('website');
 let titleInput = document.getElementById('title');
 let sha = document.getElementById('sha');
 let fileNameInput = document.getElementById('file-name');
-let getFileDataResponse = sessionStorage.getItem("file-data");
+let getFileDataResponse = sessionStorage.getItem("visiting-card-data");
 let fileName = '',
     phoneNumberTemp = '';
 let submitButton = document.querySelector("#submit-button");
@@ -42,8 +42,10 @@ let checkValidation = () => {
         if (!result) {
             emailValidation.innerText = 'Invalid Email Address';
             emailFlag = false;
-        } else
-            emailValidation.innerText = '';
+            return;
+        }
+
+        emailValidation.innerText = '';
         emailFlag = true;
     }
 
@@ -55,10 +57,11 @@ let checkValidation = () => {
         if (!result) {
             firstNameValidation.innerText = 'Invalid First Name';
             firstNameFlag = false;
-        } else {
-            firstNameValidation.innerText = '';
-            firstNameFlag = true;
+            return;
         }
+
+        firstNameValidation.innerText = '';
+        firstNameFlag = true;
     }
 
     if (lastNameInput.value === '') {
@@ -69,10 +72,11 @@ let checkValidation = () => {
         if (!result) {
             lastNameValidation.innerText = 'Invalid First Name';
             lastNameFlag = false;
-        } else {
-            lastNameValidation.innerText = '';
-            lastNameFlag = true;
+            return;
         }
+
+        lastNameValidation.innerText = '';
+        lastNameFlag = true;
     }
 
     if (githubInput.value === '') {
@@ -83,7 +87,9 @@ let checkValidation = () => {
         if (!result) {
             githubValidation.innerText = 'Please Enter Proper Github URL (Do add the full url include http or https)';
             githubFlag = false;
+            return;
         }
+
         githubValidation.innerText = '';
         githubFlag = true;
     }
@@ -96,10 +102,11 @@ let checkValidation = () => {
         if (!result) {
             websiteValidation.innerText = 'Invalid Website (Do add the full url include http or https)';
             websiteFlag = false
-        } else {
-            websiteValidation.innerText = '';
-            websiteFlag = true;
+            return;
         }
+
+        websiteValidation.innerText = '';
+        websiteFlag = true;
     }
 
     if (phoneNumberInput.value === '') {
@@ -110,10 +117,11 @@ let checkValidation = () => {
         if (!result) {
             phoneNumberValidation.innerText = 'Invalid Phone Number';
             phoneNumberFlag = false;
-        } else {
-            phoneNumberValidation.innerText = '';
-            phoneNumberFlag = true;
+            return;
         }
+
+        phoneNumberValidation.innerText = '';
+        phoneNumberFlag = true;
     }
 };
 
@@ -124,7 +132,7 @@ let submitForm = async () => {
         submitButton.setAttribute('disabled', true);
         displayLoading();
         await axios.post(
-            '/.netlify/functions/getThePhoneNumber',
+            '/.netlify/functions/fetchPhoneNumbers',
         ).then((res) => {
             let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
             let shaName = res.data.data.sha;
@@ -142,14 +150,15 @@ let submitForm = async () => {
 
             updateData();
 
-        }).catch((err) => {});
+        });
         return;
     }
 };
 
 let displayTheData = () => {
-    getFileDataResponse = sessionStorage.getItem("file-data");
+    getFileDataResponse = sessionStorage.getItem("visiting-card-data");
     getFileDataResponse = JSON.parse(getFileDataResponse);
+
     let fileData = JSON.parse(atob(getFileDataResponse.content));
     let shaValue = getFileDataResponse.sha;
     fileName = getFileDataResponse.name;
@@ -173,7 +182,7 @@ if (getFileDataResponse) {
 let updateThePhoneNumber = (shaName, phoneNumberArray) => {
     phoneNumberArray.push(parseInt(phoneNumberInput.value));
     axios.post(
-        '/.netlify/functions/updateThePhoneNumber', {
+        '/.netlify/functions/updatePhoneNumbersList', {
             'sha': shaName,
             'data': phoneNumberArray
         }).then(() => {
@@ -198,14 +207,12 @@ let createData = async () => {
 
     displayLoading();
     await axios.post(
-        '/.netlify/functions/create', {
+        '/.netlify/functions/createNewCard', {
             'data': jsonData,
             'folder_name': userName
         }
-    ).then((res) => {
+    ).then(() => {
         window.location.href = 'index.html';
-    }).catch((err) => {
-        //
     });
 }
 
@@ -222,16 +229,14 @@ let updateData = async () => {
 
     displayLoading();
     await axios.post(
-        '/.netlify/functions/update', {
+        '/.netlify/functions/updateVisitingCard', {
             'data': jsonData,
             'folder_name': userName,
             "file_name": fileNameInput.value,
             'sha': sha.value
         }
-    ).then((res) => {
-        localStorage.removeItem('file-data');
+    ).then(() => {
+        localStorage.removeItem('visiting-card-data');
         window.location.href = 'index.html';
-    }).catch((err) => {
-        //
     });
 }
