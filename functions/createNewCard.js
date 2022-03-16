@@ -3,18 +3,22 @@ const base64 = require("base-64");
 
 exports.handler = async function (event, context) {
     try {
+        const date = new Date();
+        let time = date.getTime();
         let response = JSON.parse(event.body);
         var responseData = response.data;
-        var sha = response.sha;
+        var folderName = response.folder_name ? response.folder_name : 'common';
         var data = JSON.stringify({
-            "message": "update the phone number list...",
+            "message": "created the file...",
             "content": base64.encode(JSON.stringify(responseData)),
-            "sha": sha
         });
+
+        let name = (responseData.first_name).replace(" ", "_");
+        let fileName = name + time + ".json";
 
         var config = {
             method: 'put',
-            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/phone_number.json',
+            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
             headers: {
                 'Authorization': 'Bearer ' + process.env.TOKEN,
                 'Content-Type': 'application/json',
@@ -35,7 +39,7 @@ exports.handler = async function (event, context) {
         return {
             statusCode: 201,
             body: JSON.stringify({
-                msg: (responseMessage.data.content.name == 'phone_number.json') ? "Successfull File Updated" : "Something Went Wrong",
+                msg: (responseMessage.data.content.name == fileName) ? "Successfull File Created" : "Something Went Wrong",
             }),
         };
     } catch (err) {

@@ -3,7 +3,7 @@ exports.handler = async function (event, context) {
     try {
         var config = {
             method: 'get',
-            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/phone_number.json',
+            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/phone_numbers.json',
             headers: {
                 'Content-Type': 'application/json'
             }
