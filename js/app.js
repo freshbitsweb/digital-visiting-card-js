@@ -1,7 +1,11 @@
+window.onload = function () {
+    checkAuth();
+}
 
-var userEmail, user;
 
 let checkAuth = () => {
+    let userEmail, user;
+
     user = localStorage.getItem('gotrue.user');
 
     if (!user) {
@@ -12,22 +16,15 @@ let checkAuth = () => {
     localStorage.setItem('username', userEmail.split("@")[0]);
 }
 
-window.onload = function () {
-    checkAuth();
-}
 
 let removeLocalStorageData = () => {
-    sessionStorage.removeItem('file-data');
+    sessionStorage.removeItem('visiting-card-data');
 }
 
 var loader = document.querySelector("#loading");
 
 var displayLoading = () => {
     loader.classList.add("display");
-
-    setTimeout(() => {
-        loader.classList.remove("display");
-    }, 5000);
 }
 
 var hideLoading = () => {
