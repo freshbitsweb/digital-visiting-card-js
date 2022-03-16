@@ -27,7 +27,7 @@ axios.post(
 
         row.append(card);
     });
-}).catch((err) => {});
+});
 
 function getTheFileData(fileName) {
     displayLoading();
