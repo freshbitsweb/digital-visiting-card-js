@@ -134,22 +134,24 @@ let submitForm = async () => {
         await axios.post(
             '/.netlify/functions/fetchPhoneNumbers',
         ).then((res) => {
+            fileName = phoneNumberInput.value + '.json';
             let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
             let shaName = res.data.data.sha;
 
-            if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
-                if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
-                    phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
-                    submitButton.removeAttribute('disabled');
-                    hideLoading();
-                    return;
+            if (phoneNumberInput.value != phoneNumberTemp) {
+                for (let i = 0; i < phoneNumberArray.length; i++) {
+                    if (phoneNumberArray[i].phone_number == (parseInt(phoneNumberInput.value))) {
+                        phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
+                        submitButton.removeAttribute('disabled');
+                        hideLoading();
+                        return;
+                    }
                 }
                 updateThePhoneNumber(shaName, phoneNumberArray);
                 return;
             }
 
             updateData();
-
         });
         return;
     }
@@ -180,18 +182,20 @@ if (getFileDataResponse) {
 }
 
 let updateThePhoneNumber = (shaName, phoneNumberArray) => {
-    phoneNumberArray.push(parseInt(phoneNumberInput.value));
+    phoneNumberArray.push(
+        { 'file_name': fileName, 'folder_name': userName, 'phone_number': parseInt(phoneNumberInput.value) }
+    );
     axios.post(
         '/.netlify/functions/updatePhoneNumbersList', {
             'sha': shaName,
             'data': phoneNumberArray
         }).then(() => {
-        if (fileName !== '') {
-            updateData();
-            return;
-        }
-        createData();
-    });
+            if (sha !== '') {
+                updateData();
+                return;
+            }
+            createData();
+        });
 }
 
 let createData = async () => {
@@ -209,7 +213,8 @@ let createData = async () => {
     await axios.post(
         '/.netlify/functions/createNewCard', {
             'data': jsonData,
-            'folder_name': userName
+            'folder_name': userName,
+            'file_name': fileName
         }
     ).then(() => {
         window.location.href = 'index.html';
