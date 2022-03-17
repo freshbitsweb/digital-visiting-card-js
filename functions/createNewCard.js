@@ -3,11 +3,10 @@ const base64 = require("base-64");
 
 exports.handler = async function (event, context) {
     try {
-        const date = new Date();
-        let time = date.getTime();
         let response = JSON.parse(event.body);
         var responseData = response.data;
-        var folderName = response.folder_name ? response.folder_name : 'common';
+        var folderName = response.folder_name;
+        var fileName = response.file_name;
         var data = JSON.stringify({
             "message": "created the file...",
             "content": base64.encode(JSON.stringify(responseData)),

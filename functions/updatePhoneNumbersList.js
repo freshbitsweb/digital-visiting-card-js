@@ -14,7 +14,7 @@ exports.handler = async function (event, context) {
 
         var config = {
             method: 'put',
-            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/phone_numbers.json',
+            url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/validate_phone_numbers.json',
             headers: {
                 'Authorization': 'Bearer ' + process.env.TOKEN,
                 'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ exports.handler = async function (event, context) {
     try {
         let response = JSON.parse(event.body);
         let fileName = response.file_name;
-        let folderName = response.folder_name ? response.folder_name : 'common';
+        let folderName = response.folder_name;
         var config = {
             method: 'get',
             url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
