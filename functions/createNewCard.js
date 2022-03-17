@@ -12,9 +12,6 @@ exports.handler = async function (event, context) {
             "content": base64.encode(JSON.stringify(responseData)),
         });
 
-        let name = (responseData.first_name).replace(" ", "_");
-        let fileName = name + time + ".json";
-
         var config = {
             method: 'put',
             url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
