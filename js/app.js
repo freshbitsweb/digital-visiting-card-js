@@ -1,7 +1,8 @@
 window.onload = function () {
-    checkAuth();
+    if (window.location.pathname != '/card.html') {
+        checkAuth();
+    }
 }
-
 
 let checkAuth = () => {
     let userEmail, user;
@@ -54,5 +55,6 @@ var navbarHtml = `
 		</div>
 	</nav>
 `;
+
 let body = document.getElementById('dynamic-navbar');
 body.innerHTML = navbarHtml;
