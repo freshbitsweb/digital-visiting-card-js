@@ -57,4 +57,6 @@ var navbarHtml = `
 `;
 
 let body = document.getElementById('dynamic-navbar');
-body.innerHTML = navbarHtml;
+if (body) {
+    body.innerHTML = navbarHtml;
+}
