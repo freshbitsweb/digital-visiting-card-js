@@ -188,20 +188,16 @@ let updateThePhoneNumber = (shaName, phoneNumberArray) => {
             'sha': shaName,
             'data': phoneNumberArray
     }).then(() => {
-            console.log('inside update the phone number list then');
             if (nameTemp !== '' && nameTemp != nameInput.value) {
-                console.log('first if');
                 deleteFile();
                 return;
             }
 
             else if (sha.value !== '' && fileNameTemp == fileNameInput.value) {
-                console.log('second if');
                 updateData();
                 return;
             }
 
-            console.log('else');
             createData();
         });
 }
