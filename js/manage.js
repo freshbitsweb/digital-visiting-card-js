@@ -1,5 +1,4 @@
-let firstNameInput = document.getElementById('first-name');
-let lastNameInput = document.getElementById('last-name');
+let nameInput = document.getElementById('name');
 let emailInput = document.getElementById('email');
 let phoneNumberInput = document.getElementById('phone-number');
 let githubInput = document.getElementById('github-link');
@@ -9,12 +8,15 @@ let sha = document.getElementById('sha');
 let fileNameInput = document.getElementById('file-name');
 let getFileDataResponse = sessionStorage.getItem("visiting-card-data");
 let fileName = '',
+    fileNameTemp = '',
+    nameTemp = '',
     phoneNumberTemp = '';
 let submitButton = document.querySelector("#submit-button");
 let userName = localStorage.getItem('username');
+let date = new Date();
+let seconds = date.getSeconds();
 
-let firstNameValidation = document.getElementById('first-name-validation');
-let lastNameValidation = document.getElementById('last-name-validation');
+let nameValidation = document.getElementById('name-validation');
 let emailValidation = document.getElementById('email-validation');
 let phoneNumberValidation = document.getElementById('phone-number-validation');
 let githubValidation = document.getElementById('github-validation');
@@ -22,10 +24,10 @@ let websiteValidation = document.getElementById('website-validation');
 
 let emailFlag = false;
 let websiteFlag = false;
-let firstNameFlag = false;
-let lastNameFlag = false;
+let nameFlag = false;
 let phoneNumberFlag = false;
 let githubFlag = false;
+let fileNameChanged = false;
 
 let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 let nameRegex = /^[a-zA-Z ]{2,30}$/;
@@ -49,34 +51,19 @@ let checkValidation = () => {
         emailFlag = true;
     }
 
-    if (firstNameInput.value === '') {
-        firstNameValidation.innerText = 'Please Enter Name';
-        firstNameFlag = false;
+    if (nameInput.value === '') {
+        nameValidation.innerText = 'Please Enter Name';
+        nameFlag = false;
     } else {
-        let result = (firstNameInput.value).match(nameRegex);
+        let result = (nameInput.value).match(nameRegex);
         if (!result) {
-            firstNameValidation.innerText = 'Invalid First Name';
-            firstNameFlag = false;
+            nameValidation.innerText = 'Invalid Name';
+            nameFlag = false;
             return;
         }
 
-        firstNameValidation.innerText = '';
-        firstNameFlag = true;
-    }
-
-    if (lastNameInput.value === '') {
-        lastNameValidation.innerText = 'Please Enter Name';
-        lastNameFlag = false;
-    } else {
-        let result = (lastNameInput.value).match(nameRegex);
-        if (!result) {
-            lastNameValidation.innerText = 'Invalid First Name';
-            lastNameFlag = false;
-            return;
-        }
-
-        lastNameValidation.innerText = '';
-        lastNameFlag = true;
+        nameValidation.innerText = '';
+        nameFlag = true;
     }
 
     if (githubInput.value === '') {
@@ -128,17 +115,27 @@ let checkValidation = () => {
 let submitForm = async () => {
     checkValidation();
 
-    if (phoneNumberFlag == true && emailFlag == true && firstNameFlag == true && lastNameFlag == true && websiteFlag == true && githubFlag == true) {
+    if (phoneNumberFlag == true && emailFlag == true && nameFlag == true && websiteFlag == true && githubFlag == true) {
         submitButton.setAttribute('disabled', true);
         displayLoading();
         await axios.post(
             '/.netlify/functions/fetchPhoneNumbers',
         ).then((res) => {
-            fileName = phoneNumberInput.value + '.json';
+            fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
+
             let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
             let shaName = res.data.data.sha;
 
-            if (phoneNumberInput.value != phoneNumberTemp) {
+            if (nameTemp !== '' && nameTemp != nameInput.value) {
+                phoneNumberArray.forEach((element, index) => {
+                    if (element.file_name == fileNameInput.value) {
+                        phoneNumberArray.splice(index, 1);
+                    }
+                });
+                updateThePhoneNumber(shaName, phoneNumberArray);
+            }
+
+            else if (phoneNumberTemp != phoneNumberInput.value) {
                 for (let i = 0; i < phoneNumberArray.length; i++) {
                     if (phoneNumberArray[i].phone_number == (parseInt(phoneNumberInput.value))) {
                         phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
@@ -147,6 +144,7 @@ let submitForm = async () => {
                         return;
                     }
                 }
+
                 updateThePhoneNumber(shaName, phoneNumberArray);
                 return;
             }
@@ -163,12 +161,12 @@ let displayTheData = () => {
 
     let fileData = JSON.parse(atob(getFileDataResponse.content));
     let shaValue = getFileDataResponse.sha;
-    fileName = getFileDataResponse.name;
-    fileNameInput.value = fileName;
+    fileNameTemp = getFileDataResponse.name;
+    fileNameInput.value = fileNameTemp;
     sha.value = shaValue;
+    nameTemp = fileData.name;
 
-    firstNameInput.value = fileData.first_name;
-    lastNameInput.value = fileData.last_name;
+    nameInput.value = fileData.name;
     titleInput.value = fileData.title ? fileData.title : '';
     emailInput.value = fileData.email;
     phoneNumberInput.value = fileData.phone_number;
@@ -189,19 +187,41 @@ let updateThePhoneNumber = (shaName, phoneNumberArray) => {
         '/.netlify/functions/updatePhoneNumbersList', {
             'sha': shaName,
             'data': phoneNumberArray
-        }).then(() => {
-            if (sha !== '') {
+    }).then(() => {
+            console.log('inside update the phone number list then');
+            if (nameTemp !== '' && nameTemp != nameInput.value) {
+                console.log('first if');
+                deleteFile();
+                return;
+            }
+
+            else if (sha.value !== '' && fileNameTemp == fileNameInput.value) {
+                console.log('second if');
                 updateData();
                 return;
             }
+
+            console.log('else');
             createData();
         });
 }
 
+let deleteFile = async () => {
+    displayLoading();
+    await axios.post(
+        '/.netlify/functions/deleteCard', {
+            'folder_name': userName,
+            'file_name': fileNameInput.value,
+            'sha': sha.value
+        }
+    ).then(() => {
+        createData();
+    });
+}
+
 let createData = async () => {
     let jsonData = {
-        'first_name': firstNameInput.value,
-        'last_name': lastNameInput.value,
+        'name': nameInput.value,
         'title': titleInput.value,
         'email': emailInput.value,
         'phone_number': phoneNumberInput.value,
@@ -217,14 +237,13 @@ let createData = async () => {
             'file_name': fileName
         }
     ).then(() => {
-        window.location.href = 'index.html';
+        location.reload('index.html');
     });
 }
 
 let updateData = async () => {
     let jsonData = {
-        'first_name': firstNameInput.value,
-        'last_name': lastNameInput.value,
+        'name': nameInput.value,
         'title': titleInput.value,
         'email': emailInput.value,
         'phone_number': phoneNumberInput.value,
@@ -237,7 +256,7 @@ let updateData = async () => {
         '/.netlify/functions/updateVisitingCard', {
             'data': jsonData,
             'folder_name': userName,
-            "file_name": fileNameInput.value,
+            'file_name': fileNameInput.value,
             'sha': sha.value
         }
     ).then(() => {
