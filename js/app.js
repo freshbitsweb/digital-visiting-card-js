@@ -47,7 +47,7 @@ var navbarHtml = `
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-hidden" href="manage.html" onclick="removeLocalStorageData()">Add Data</a>
+                        <a class="nav-link d-hidden" href="manage.html" onclick="removeLocalStorageData()">Add New Visiting Card</a>
                     </li>
                 </ul>
 				<div data-netlify-identity-menu></div>
