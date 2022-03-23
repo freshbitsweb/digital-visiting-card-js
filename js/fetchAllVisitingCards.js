@@ -20,14 +20,31 @@ const fetchAllCards = async () => {
 
         hideLoading();
         allData.forEach(element => {
-            let filename = element.name;
-            let name = filename.split('_');
-            const card = templateWithData.content.cloneNode(true);
-            card.querySelector('.card-name').innerText = name[0] + ' ' + name[1];
-            card.querySelector('.click-card-button').onclick = function () { getTheFileData(filename) };
-            card.querySelector('.edit-card-button').onclick = function () { editTheFileData(filename) };
+            displayLoading();
+            axios.post(
+                '/.netlify/functions/getSpecificVisitingCard', {
+                file_name: element.name,
+                folder_name: userName
+            }
+            ).then((res) => {
+                hideLoading();
+                let data = JSON.parse(atob(res.data.data.content));
+                const card = templateWithData.content.cloneNode(true);
+                card.querySelector('.card-name').innerHTML = data.name;
+                card.querySelector('.card-title').innerHTML = data.title ? data.title : '';
+                card.querySelector('.card-phone').innerHTML = data.phone_number;
+                card.querySelector('.card-phone').href = 'tel:' + data.phone_number;
+                card.querySelector('.card-gmail').innerHTML = data.email;
+                card.querySelector('.card-gmail').href = 'mailto:' + data.email;
+                card.querySelector('.card-website').innerHTML = data.website;
+                card.querySelector('.card-website').href = data.website;
+                card.querySelector('.card-github').innerHTML = data.github;
+                card.querySelector('.card-github').href = data.github;
+                row.append(card);
+            });
+            // card.querySelector('.click-card-button').onclick = function () { getTheFileData(filename) };
+            // card.querySelector('.edit-card-button').onclick = function () { editTheFileData(filename) };
 
-            row.append(card);
         });
     });
 };
