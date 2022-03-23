@@ -1,21 +1,27 @@
-let visitingCardData= sessionStorage.getItem("visiting-card-data");
-visitingCardData = JSON.parse(visitingCardData);
-let firstName = (visitingCardData.name).split(' ')[0];
-let lastName = (visitingCardData.name).split(' ')[1];
-document.getElementById('first').innerHTML = firstName;
-document.getElementById('last').innerHTML = lastName;
-document.getElementById('title').innerHTML = visitingCardData.title ? visitingCardData.title : '';
-document.getElementById('gmail').innerHTML = visitingCardData.email;
-document.getElementById('phone-number').innerHTML = visitingCardData.phone_number;
-document.getElementById('whatsapp').href = 'https://wa.me/' + visitingCardData.phone_number;
-document.getElementById('phone-number').href = 'tel:' + visitingCardData.phone_number;
-document.getElementById('gmail').href = 'mailto:' + visitingCardData.email;
-document.getElementById('github').href = visitingCardData.github;
-document.getElementById('website').href = visitingCardData.website;
+let visitingCardData = sessionStorage.getItem("visiting-card-data");
+
+let displayData = () => {
+    visitingCardData = JSON.parse(visitingCardData);
+    let firstName = (visitingCardData.name).split(' ')[0];
+    let lastName = (visitingCardData.name).split(' ')[1];
+    document.getElementById('first').innerHTML = firstName;
+    document.getElementById('last').innerHTML = lastName;
+    document.getElementById('title').innerHTML = visitingCardData.title ? visitingCardData.title : '';
+    document.getElementById('gmail').innerHTML = visitingCardData.email;
+    document.getElementById('phone-number').innerHTML = visitingCardData.phone_number;
+    document.getElementById('whatsapp').href = 'https://wa.me/' + visitingCardData.phone_number;
+    document.getElementById('phone-number').href = 'tel:' + visitingCardData.phone_number;
+    document.getElementById('gmail').href = 'mailto:' + visitingCardData.email;
+    document.getElementById('github').href = visitingCardData.github;
+    document.getElementById('website').href = visitingCardData.website;
+}
+
+if (visitingCardData) {
+    displayData();
+}
 
 let queryString = document.location.search;
-let paramString = queryString.split('?')[1];
-let params_arr = paramString.split('&');
+let paramString = queryString.split('?');
 
 const fetchSpecificCard = async (fileName, folderName) => {
     await axios.post(
@@ -27,6 +33,7 @@ const fetchSpecificCard = async (fileName, folderName) => {
         let data = atob(res.data.data.content);
         sessionStorage.removeItem("visiting-card-data");
         sessionStorage.setItem("visiting-card-data", data);
+        displayData();
     });
 };
 
@@ -44,7 +51,7 @@ const fetchVisitingCards = async (phoneNumber) => {
     });
 }
 
-for (let i = 0; i < params_arr.length; i++) {
-    let pair = params_arr[i].split('=');
+for (let i = 0; i < paramString.length; i++) {
+    let pair = paramString[i].split('=');
     fetchVisitingCards(pair[1]);
 }
