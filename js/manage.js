@@ -4,6 +4,7 @@ let phoneNumberInput = document.getElementById('phone-number');
 let githubInput = document.getElementById('github-link');
 let websiteInput = document.getElementById('website');
 let titleInput = document.getElementById('title');
+let themeSelect = document.getElementById('theme-select');
 let sha = document.getElementById('sha');
 let fileNameInput = document.getElementById('file-name');
 let getFileDataResponse = sessionStorage.getItem("visiting-card-data");
@@ -15,6 +16,9 @@ let submitButton = document.querySelector("#submit-button");
 let userName = localStorage.getItem('username');
 let date = new Date();
 let seconds = date.getSeconds();
+const templateTheme1 = document.getElementById('theme-1');
+const templateTheme2 = document.getElementById('theme-2');
+const updateThemeCard = document.getElementById('update-theme-card');
 
 let nameValidation = document.getElementById('name-validation');
 let emailValidation = document.getElementById('email-validation');
@@ -34,6 +38,43 @@ let nameRegex = /^[a-zA-Z ]{2,30}$/;
 let websiteRegex = /^(http(s)?:\/\/.)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\\/\\/=]*)$/gi;
 let phoneRegex = /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g;
 let githubRegex = /^(https:\/\/)github.com[:/](.*)$/g;
+
+let livePreviewOfTheme = () => {
+    switch (themeSelect.value) {
+        case 'theme1':
+            displayCardTheme1();
+            break;
+        case 'theme2':
+            displayCardTheme2();
+            break;
+        default:
+            break;
+    }
+}
+
+const displayCardTheme1 = () => {
+    const theme1 = templateTheme1.content.cloneNode(true);
+    theme1.querySelector('.name-theme-1').innerText = nameInput.value;
+    theme1.querySelector('.title-theme-1').innerText = titleInput.value ? titleInput.value : '';
+    theme1.querySelector('.phone-number-theme-1').innerText = phoneNumberInput.value;
+    theme1.querySelector('.email-theme-1').innerText = emailInput.value;
+    theme1.querySelector('.website-theme-1').innerText = websiteInput.value;
+    theme1.querySelector('.github-theme-1').innerText = githubInput.value;
+    updateThemeCard.innerHTML = '';
+    updateThemeCard.append(theme1);
+};
+
+const displayCardTheme2 = () => {
+    const theme2 = templateTheme2.content.cloneNode(true);
+    theme2.querySelector('.name').innerText = nameInput.value;
+    theme2.querySelector('.title').innerText = titleInput.value ? titleInput.value : '';
+    theme2.querySelector('.phone-number').innerText = phoneNumberInput.value;
+    theme2.querySelector('.email').innerText = emailInput.value;
+    theme2.querySelector('.website').innerText = websiteInput.value;
+    theme2.querySelector('.github').innerText = githubInput.value;
+    updateThemeCard.innerHTML = '';
+    updateThemeCard.append(theme2);
+};
 
 let checkValidation = () => {
     if (emailInput.value === '') {
@@ -66,10 +107,7 @@ let checkValidation = () => {
         nameFlag = true;
     }
 
-    if (githubInput.value === '') {
-        githubValidation.innerText = 'Please Enter Github Username URL';
-        githubFlag = false;
-    } else {
+    if (githubInput.value !== '') {
         let result = (githubInput.value).match(githubRegex);
         if (!result) {
             githubValidation.innerText = 'Please Enter Proper Github URL (Do add the full url include http or https)';
@@ -81,10 +119,7 @@ let checkValidation = () => {
         githubFlag = true;
     }
 
-    if (websiteInput.value === '') {
-        websiteValidation.innerText = 'Please Enter Website';
-        websiteFlag = false
-    } else {
+    if (websiteInput.value !== '') {
         let result = (websiteInput.value).match(websiteRegex);
         if (!result) {
             websiteValidation.innerText = 'Invalid Website (Do add the full url include http or https)';
@@ -113,45 +148,47 @@ let checkValidation = () => {
 };
 
 let submitForm = async () => {
+    livePreviewOfTheme();
     checkValidation();
+    if (confirm('Confirm The Theme.')) {
+        if (phoneNumberFlag == true && emailFlag == true && nameFlag == true) {
+            submitButton.setAttribute('disabled', true);
+            displayLoading();
+            await axios.post(
+                '/.netlify/functions/fetchPhoneNumbers',
+            ).then((res) => {
+                fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
 
-    if (phoneNumberFlag == true && emailFlag == true && nameFlag == true && websiteFlag == true && githubFlag == true) {
-        submitButton.setAttribute('disabled', true);
-        displayLoading();
-        await axios.post(
-            '/.netlify/functions/fetchPhoneNumbers',
-        ).then((res) => {
-            fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
+                let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
+                let shaName = res.data.data.sha;
 
-            let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
-            let shaName = res.data.data.sha;
-
-            if (nameTemp !== '' && nameTemp != nameInput.value) {
-                phoneNumberArray.forEach((element, index) => {
-                    if (element.file_name == fileNameInput.value) {
-                        phoneNumberArray.splice(index, 1);
-                    }
-                });
-                updateThePhoneNumber(shaName, phoneNumberArray);
-            }
-
-            else if (phoneNumberTemp != phoneNumberInput.value) {
-                for (let i = 0; i < phoneNumberArray.length; i++) {
-                    if (phoneNumberArray[i].phone_number == (parseInt(phoneNumberInput.value))) {
-                        phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
-                        submitButton.removeAttribute('disabled');
-                        hideLoading();
-                        return;
-                    }
+                if (nameTemp !== '' && nameTemp != nameInput.value) {
+                    phoneNumberArray.forEach((element, index) => {
+                        if (element.file_name == fileNameInput.value) {
+                            phoneNumberArray.splice(index, 1);
+                        }
+                    });
+                    updateThePhoneNumber(shaName, phoneNumberArray);
                 }
 
-                updateThePhoneNumber(shaName, phoneNumberArray);
-                return;
-            }
+                else if (phoneNumberTemp != phoneNumberInput.value) {
+                    for (let i = 0; i < phoneNumberArray.length; i++) {
+                        if (phoneNumberArray[i].phone_number == (parseInt(phoneNumberInput.value))) {
+                            phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
+                            submitButton.removeAttribute('disabled');
+                            hideLoading();
+                            return;
+                        }
+                    }
 
-            updateData();
-        });
-        return;
+                    updateThePhoneNumber(shaName, phoneNumberArray);
+                    return;
+                }
+
+                updateData();
+            });
+            return;
+        }
     }
 };
 
@@ -223,6 +260,7 @@ let createData = async () => {
         'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,
         'github': githubInput.value,
+        'selected_theme': themeSelect.value,
     };
 
     displayLoading();
@@ -245,6 +283,7 @@ let updateData = async () => {
         'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,
         'github': githubInput.value,
+        'selected_theme': themeSelect.value,
     };
 
     displayLoading();
