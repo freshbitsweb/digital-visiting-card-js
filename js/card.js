@@ -1,4 +1,4 @@
-let visitingCardData= sessionStorage.getItem("visiting-card-data");
+const visitingCardData= sessionStorage.getItem("visiting-card-data");
 visitingCardData = JSON.parse(visitingCardData);
 document.getElementById('first').innerHTML = visitingCardData.first_name;
 document.getElementById('last').innerHTML = visitingCardData.last_name;

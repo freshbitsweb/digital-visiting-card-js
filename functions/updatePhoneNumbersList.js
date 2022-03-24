@@ -3,16 +3,16 @@ const base64 = require("base-64");
 
 exports.handler = async function (event, context) {
     try {
-        let response = JSON.parse(event.body);
-        var responseData = response.data;
-        var sha = response.sha;
-        var data = JSON.stringify({
+        const response = JSON.parse(event.body);
+        const responseData = response.data;
+        const sha = response.sha;
+        const data = JSON.stringify({
             "message": "update the phone number list...",
             "content": base64.encode(JSON.stringify(responseData)),
             "sha": sha
         });
 
-        var config = {
+        const config = {
             method: 'put',
             url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/phone_numbers.json',
             headers: {
@@ -22,7 +22,7 @@ exports.handler = async function (event, context) {
             data: data
         }
 
-        var responseMessage;
+        let responseMessage;
 
         await axios(config)
             .then(function (testResponse) {

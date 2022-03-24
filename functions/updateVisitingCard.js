@@ -3,18 +3,18 @@ const base64 = require("base-64");
 
 exports.handler = async function (event, context) {
     try {
-        let response = JSON.parse(event.body);
-        var responseData = response.data;
-        var folderName = response.folder_name ? response.folder_name : 'common';
-        var sha = response.sha;
-        var fileName = response.file_name;
-        var data = JSON.stringify({
+        const response = JSON.parse(event.body);
+        const responseData = response.data;
+        const folderName = response.folder_name ? response.folder_name : 'common';
+        const sha = response.sha;
+        const fileName = response.file_name;
+        const data = JSON.stringify({
             "message": "update the file...",
             "content": base64.encode(JSON.stringify(responseData)),
             "sha": sha
         });
 
-        var config = {
+        const config = {
             method: 'put',
             url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
             headers: {
@@ -24,7 +24,7 @@ exports.handler = async function (event, context) {
             data: data
         }
 
-        var responseMessage;
+        let responseMessage;
 
         await axios(config)
             .then(function (testResponse) {

@@ -2,8 +2,7 @@ window.onload = function () {
     checkAuth();
 }
 
-
-let checkAuth = () => {
+const checkAuth = () => {
     let userEmail, user;
 
     user = localStorage.getItem('gotrue.user');
@@ -17,11 +16,11 @@ let checkAuth = () => {
 }
 
 
-let removeLocalStorageData = () => {
+const removeLocalStorageData = () => {
     sessionStorage.removeItem('visiting-card-data');
 }
 
-var loader = document.querySelector("#loading");
+let loader = document.querySelector("#loading");
 
 var displayLoading = () => {
     loader.classList.add("display");
@@ -54,5 +53,5 @@ var navbarHtml = `
 		</div>
 	</nav>
 `;
-let body = document.getElementById('dynamic-navbar');
+const body = document.getElementById('dynamic-navbar');
 body.innerHTML = navbarHtml;

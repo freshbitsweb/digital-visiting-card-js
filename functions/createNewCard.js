@@ -4,19 +4,19 @@ const base64 = require("base-64");
 exports.handler = async function (event, context) {
     try {
         const date = new Date();
-        let time = date.getTime();
-        let response = JSON.parse(event.body);
-        var responseData = response.data;
-        var folderName = response.folder_name ? response.folder_name : 'common';
-        var data = JSON.stringify({
+        const time = date.getTime();
+        const response = JSON.parse(event.body);
+        const responseData = response.data;
+        const folderName = response.folder_name ? response.folder_name : 'common';
+        const data = JSON.stringify({
             "message": "created the file...",
             "content": base64.encode(JSON.stringify(responseData)),
         });
 
-        let name = (responseData.first_name).replace(" ", "_");
-        let fileName = name + time + ".json";
+        const name = (responseData.first_name).replace(" ", "_");
+        const fileName = name + time + ".json";
 
-        var config = {
+        const config = {
             method: 'put',
             url: 'https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents/js/' + folderName + '/' + fileName,
             headers: {
@@ -26,7 +26,7 @@ exports.handler = async function (event, context) {
             data: data
         }
 
-        var responseMessage;
+        let responseMessage;
 
         await axios(config)
             .then(function (testResponse) {

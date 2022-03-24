@@ -1,44 +1,44 @@
-let firstNameInput = document.getElementById('first-name');
-let lastNameInput = document.getElementById('last-name');
-let emailInput = document.getElementById('email');
-let phoneNumberInput = document.getElementById('phone-number');
-let githubInput = document.getElementById('github-link');
-let websiteInput = document.getElementById('website');
-let titleInput = document.getElementById('title');
-let sha = document.getElementById('sha');
-let fileNameInput = document.getElementById('file-name');
-let getFileDataResponse = sessionStorage.getItem("visiting-card-data");
-let fileName = '',
+const firstNameInput = document.getElementById('first-name');
+const lastNameInput = document.getElementById('last-name');
+const emailInput = document.getElementById('email');
+const phoneNumberInput = document.getElementById('phone-number');
+const githubInput = document.getElementById('github-link');
+const websiteInput = document.getElementById('website');
+const titleInput = document.getElementById('title');
+const sha = document.getElementById('sha');
+const fileNameInput = document.getElementById('file-name');
+const getFileDataResponse = sessionStorage.getItem("visiting-card-data");
+const fileName = '',
     phoneNumberTemp = '';
-let submitButton = document.querySelector("#submit-button");
-let userName = localStorage.getItem('username');
+const submitButton = document.querySelector("#submit-button");
+const userName = localStorage.getItem('username');
 
-let firstNameValidation = document.getElementById('first-name-validation');
-let lastNameValidation = document.getElementById('last-name-validation');
-let emailValidation = document.getElementById('email-validation');
-let phoneNumberValidation = document.getElementById('phone-number-validation');
-let githubValidation = document.getElementById('github-validation');
-let websiteValidation = document.getElementById('website-validation');
+const firstNameValidation = document.getElementById('first-name-validation');
+const lastNameValidation = document.getElementById('last-name-validation');
+const emailValidation = document.getElementById('email-validation');
+const phoneNumberValidation = document.getElementById('phone-number-validation');
+const githubValidation = document.getElementById('github-validation');
+const websiteValidation = document.getElementById('website-validation');
 
-let emailFlag = false;
-let websiteFlag = false;
-let firstNameFlag = false;
-let lastNameFlag = false;
-let phoneNumberFlag = false;
-let githubFlag = false;
+const emailFlag = false;
+const websiteFlag = false;
+const firstNameFlag = false;
+const lastNameFlag = false;
+const phoneNumberFlag = false;
+const githubFlag = false;
 
-let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-let nameRegex = /^[a-zA-Z ]{2,30}$/;
-let websiteRegex = /^(http(s)?:\/\/.)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\\/\\/=]*)$/gi;
-let phoneRegex = /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g;
-let githubRegex = /^(https:\/\/)github.com[:/](.*)$/g;
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const nameRegex = /^[a-zA-Z ]{2,30}$/;
+const websiteRegex = /^(http(s)?:\/\/.)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\\/\\/=]*)$/gi;
+const phoneRegex = /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g;
+const githubRegex = /^(https:\/\/)github.com[:/](.*)$/g;
 
-let checkValidation = () => {
+const checkValidation = () => {
     if (emailInput.value === '') {
         emailValidation.innerText = 'Please Enter Email Address';
         emailFlag = false;
     } else {
-        let result = (emailInput.value).match(emailRegex);
+        const result = (emailInput.value).match(emailRegex);
         if (!result) {
             emailValidation.innerText = 'Invalid Email Address';
             emailFlag = false;
@@ -53,7 +53,7 @@ let checkValidation = () => {
         firstNameValidation.innerText = 'Please Enter Name';
         firstNameFlag = false;
     } else {
-        let result = (firstNameInput.value).match(nameRegex);
+        const result = (firstNameInput.value).match(nameRegex);
         if (!result) {
             firstNameValidation.innerText = 'Invalid First Name';
             firstNameFlag = false;
@@ -68,7 +68,7 @@ let checkValidation = () => {
         lastNameValidation.innerText = 'Please Enter Name';
         lastNameFlag = false;
     } else {
-        let result = (lastNameInput.value).match(nameRegex);
+        const result = (lastNameInput.value).match(nameRegex);
         if (!result) {
             lastNameValidation.innerText = 'Invalid First Name';
             lastNameFlag = false;
@@ -83,7 +83,7 @@ let checkValidation = () => {
         githubValidation.innerText = 'Please Enter Github Username URL';
         githubFlag = false;
     } else {
-        let result = (githubInput.value).match(githubRegex);
+        const result = (githubInput.value).match(githubRegex);
         if (!result) {
             githubValidation.innerText = 'Please Enter Proper Github URL (Do add the full url include http or https)';
             githubFlag = false;
@@ -98,7 +98,7 @@ let checkValidation = () => {
         websiteValidation.innerText = 'Please Enter Website';
         websiteFlag = false
     } else {
-        let result = (websiteInput.value).match(websiteRegex);
+        const result = (websiteInput.value).match(websiteRegex);
         if (!result) {
             websiteValidation.innerText = 'Invalid Website (Do add the full url include http or https)';
             websiteFlag = false
@@ -113,7 +113,7 @@ let checkValidation = () => {
         phoneNumberValidation.innerText = 'Please Enter Phone Number';
         phoneNumberFlag = false;
     } else {
-        let result = (phoneNumberInput.value).match(phoneRegex);
+        const result = (phoneNumberInput.value).match(phoneRegex);
         if (!result) {
             phoneNumberValidation.innerText = 'Invalid Phone Number';
             phoneNumberFlag = false;
@@ -125,7 +125,7 @@ let checkValidation = () => {
     }
 };
 
-let submitForm = async () => {
+const submitForm = async () => {
     checkValidation();
 
     if (phoneNumberFlag == true && emailFlag == true && firstNameFlag == true && lastNameFlag == true && websiteFlag == true && githubFlag == true) {
@@ -134,8 +134,8 @@ let submitForm = async () => {
         await axios.post(
             '/.netlify/functions/fetchPhoneNumbers',
         ).then((res) => {
-            let phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
-            let shaName = res.data.data.sha;
+            const phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
+            const shaName = res.data.data.sha;
 
             if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
                 if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
@@ -155,12 +155,12 @@ let submitForm = async () => {
     }
 };
 
-let displayTheData = () => {
+const displayTheData = () => {
     getFileDataResponse = sessionStorage.getItem("visiting-card-data");
     getFileDataResponse = JSON.parse(getFileDataResponse);
 
-    let fileData = JSON.parse(atob(getFileDataResponse.content));
-    let shaValue = getFileDataResponse.sha;
+    const fileData = JSON.parse(atob(getFileDataResponse.content));
+    const shaValue = getFileDataResponse.sha;
     fileName = getFileDataResponse.name;
     fileNameInput.value = fileName;
     sha.value = shaValue;
@@ -179,7 +179,7 @@ if (getFileDataResponse) {
     displayTheData();
 }
 
-let updateThePhoneNumber = (shaName, phoneNumberArray) => {
+const updateThePhoneNumber = (shaName, phoneNumberArray) => {
     phoneNumberArray.push(parseInt(phoneNumberInput.value));
     axios.post(
         '/.netlify/functions/updatePhoneNumbersList', {
@@ -194,8 +194,8 @@ let updateThePhoneNumber = (shaName, phoneNumberArray) => {
     });
 }
 
-let createData = async () => {
-    let jsonData = {
+const createData = async () => {
+    const jsonData = {
         'first_name': firstNameInput.value,
         'last_name': lastNameInput.value,
         'title': titleInput.value,
@@ -216,8 +216,8 @@ let createData = async () => {
     });
 }
 
-let updateData = async () => {
-    let jsonData = {
+const updateData = async () => {
+    const jsonData = {
         'first_name': firstNameInput.value,
         'last_name': lastNameInput.value,
         'title': titleInput.value,
