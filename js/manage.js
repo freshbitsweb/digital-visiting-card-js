@@ -7,9 +7,9 @@ const titleInput = document.getElementById('title');
 let fileName = '',
     phoneNumberTemp = '';
 const submitButton = document.querySelector("#submit-button");
-const userName = localStorage.getItem('username');
-let date = new Date();
-let seconds = date.getSeconds();
+const userName = localStorage.getItem('userDirectory');
+const date = new Date();
+const seconds = date.getSeconds();
 
 const nameValidation = document.getElementById('name-validation');
 const emailValidation = document.getElementById('email-validation');

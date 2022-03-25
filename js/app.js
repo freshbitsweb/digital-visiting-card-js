@@ -1,4 +1,31 @@
-var navbarHtml = `
+window.onload = function () {
+    checkAuth();
+}
+
+const checkAuth = () => {
+	let userEmail = user = '';
+
+    user = localStorage.getItem('gotrue.user');
+
+    if (!user) {
+        netlifyIdentity.open();
+        return;
+    }
+    userEmail = JSON.parse(user).email;
+    localStorage.setItem('userDirectory', userEmail);
+}
+
+const loader = document.querySelector("#loading");
+
+const displayLoading = () => {
+    loader.classList.add("display");
+}
+
+const hideLoading = () => {
+    loader.classList.remove("display");
+}
+
+const navbarHtml = `
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Digital Visiting Card</a>
@@ -21,5 +48,5 @@ var navbarHtml = `
 		</div>
 	</nav>
 `;
-let body = document.getElementById('dynamic-body');
+const body = document.getElementById('dynamic-navbar');
 body.innerHTML = navbarHtml;
