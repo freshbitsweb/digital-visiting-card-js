@@ -1,4 +1,6 @@
 [functions]
     directory = "functions"
-[context.deploy-preview.environment]
-    GITHUB_URL="https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents"
+[context.production]
+    environment = {
+        GITHUB_URL = "https://api.github.com/repos/misusonu18/digital-visiting-card-js/contents"
+    }
