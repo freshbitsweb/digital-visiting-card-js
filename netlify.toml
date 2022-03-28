@@ -1,2 +1,14 @@
 [functions]
     directory = "functions"
+[[redirects]]
+    from = "/fetch-phone-numbers"
+    to = "/.netlify/functions/fetchPhoneNumbers"
+    status = 200
+[[redirects]]
+    from = "/update-phone-number"
+    to = "/.netlify/functions/updatePhoneNumbersList"
+    status = 200
+[[redirects]]
+    from = "/create-new-visiting-card"
+    to = "/.netlify/functions/createNewCard"
+    status = 200
