@@ -111,11 +111,11 @@ const submitForm = async () => {
 
     if (phoneNumberFlag == true && emailFlag == true && nameFlag == true && websiteFlag == true && githubFlag == true) {
         submitButton.setAttribute('disabled', true);
-		displayLoading();
+        displayLoading();
         await axios.post(
             '/.netlify/functions/fetchPhoneNumbers',
-		).then((res) => {
-			fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
+        ).then((res) => {
+            fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
 
             const phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
             const shaName = res.data.data.sha;
@@ -144,12 +144,12 @@ const updateThePhoneNumber = (shaName, phoneNumberArray) => {
             'sha': shaName,
             'data': phoneNumberArray
         }).then(() => {
-			createData();
-		}).catch(() => {
-			hideLoading();
-			submitButton.removeAttribute('disabled');
-		})
-	;
+            createData();
+        }).catch(() => {
+            hideLoading();
+            submitButton.removeAttribute('disabled');
+        })
+    ;
 }
 
 const createData = async () => {
@@ -166,8 +166,8 @@ const createData = async () => {
     await axios.post(
         '/.netlify/functions/createNewCard', {
             'data': jsonData,
-			'folder_name': userName,
-			'file_name': fileName
+            'folder_name': userName,
+            'file_name': fileName
         }
     ).then(() => {
         window.location.href = 'index.html';
