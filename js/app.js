@@ -3,16 +3,13 @@ window.onload = function () {
 }
 
 const checkAuth = () => {
-    let userEmail = user = '';
-
-    user = localStorage.getItem('gotrue.user');
+    const user = localStorage.getItem('gotrue.user');
 
     if (!user) {
         netlifyIdentity.open();
         return;
     }
-    userEmail = JSON.parse(user).email;
-    localStorage.setItem('userDirectory', userEmail);
+    localStorage.setItem('userDirectory', JSON.parse(user).email);
 }
 
 const loader = document.querySelector("#loading");

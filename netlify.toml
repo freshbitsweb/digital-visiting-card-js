@@ -12,3 +12,4 @@
     from = "/create-new-visiting-card"
     to = "/.netlify/functions/createNewCard"
     status = 200
+    
