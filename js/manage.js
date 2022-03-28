@@ -109,33 +109,33 @@ const checkValidation = () => {
 const submitForm = async () => {
     checkValidation();
 
-    if (phoneNumberFlag == true && emailFlag == true && nameFlag == true && websiteFlag == true && githubFlag == true) {
-        submitButton.setAttribute('disabled', true);
-        displayLoading();
-        await axios.post(
-            '/fetch-phone-numbers',
-        ).then((res) => {
-            fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
-
-            const phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
-            const shaName = res.data.data.sha;
-
-            if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
-                if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
-                    phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
-                    submitButton.removeAttribute('disabled');
-                    hideLoading();
-                    return;
-                }
-                updateThePhoneNumber(shaName, phoneNumberArray);
-                return;
-            }
-        });
+    if (phoneNumberFlag != true || emailFlag != true || nameFlag != true || websiteFlag != true || githubFlag != true) {
         return;
     }
+    submitButton.setAttribute('disabled', true);
+    displayLoading();
+    await axios.post(
+        '/fetch-phone-numbers',
+    ).then((res) => {
+        fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
+
+        const phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
+        const shaName = res.data.data.sha;
+
+        if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
+            if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
+                phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
+                submitButton.removeAttribute('disabled');
+                hideLoading();
+                return;
+            }
+            createNewVisitingCard(shaName, phoneNumberArray);
+            return;
+        }
+    });
 };
 
-const updateThePhoneNumber = (shaName, phoneNumberArray) => {
+const updateThePhoneNumber = async (shaName, phoneNumberArray) => {
     phoneNumberArray.push(
         { 'file_name': fileName, 'folder_name': userName, 'phone_number': parseInt(phoneNumberInput.value) }
     );
@@ -144,15 +144,12 @@ const updateThePhoneNumber = (shaName, phoneNumberArray) => {
             'sha': shaName,
             'data': phoneNumberArray
         }).then(() => {
-            createData();
-        }).catch(() => {
-            hideLoading();
-            submitButton.removeAttribute('disabled');
+            window.location.href = 'index.html';
         })
     ;
 }
 
-const createData = async () => {
+const createNewVisitingCard = async (shaName, phoneNumberArray) => {
     const jsonData = {
         'name': nameInput.value,
         'title': titleInput.value,
@@ -170,6 +167,6 @@ const createData = async () => {
             'file_name': fileName
         }
     ).then(() => {
-        window.location.href = 'index.html';
+        updateThePhoneNumber(shaName, phoneNumberArray);
     });
 }
