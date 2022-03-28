@@ -113,7 +113,7 @@ const submitForm = async () => {
         submitButton.setAttribute('disabled', true);
         displayLoading();
         await axios.post(
-            '/.netlify/functions/fetchPhoneNumbers',
+            '/fetch-phone-numbers',
         ).then((res) => {
             fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
 
@@ -140,7 +140,7 @@ const updateThePhoneNumber = (shaName, phoneNumberArray) => {
         { 'file_name': fileName, 'folder_name': userName, 'phone_number': parseInt(phoneNumberInput.value) }
     );
     axios.post(
-        '/.netlify/functions/updatePhoneNumbersList', {
+        '/update-phone-number', {
             'sha': shaName,
             'data': phoneNumberArray
         }).then(() => {
@@ -164,7 +164,7 @@ const createData = async () => {
 
     displayLoading();
     await axios.post(
-        '/.netlify/functions/createNewCard', {
+        '/create-new-visiting-card', {
             'data': jsonData,
             'folder_name': userName,
             'file_name': fileName
