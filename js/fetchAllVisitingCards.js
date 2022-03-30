@@ -48,6 +48,7 @@ const fetchAllCards = async () => {
                 card.querySelector('.card-website').href = data.website;
                 card.querySelector('.card-github').innerHTML = data.github;
                 card.querySelector('.card-github').href = data.github;
+                card.querySelector('.edit-card-button').onclick = function () { editTheFileData(element.name) }
                 row.append(card);
             });
         });
@@ -55,3 +56,18 @@ const fetchAllCards = async () => {
 };
 
 fetchAllCards();
+
+const editTheFileData = async (fileName) => {
+    displayLoading();
+    await axios.post(
+        '/fetch-specific-visiting-card', {
+        file_name: fileName,
+        folder_name: userName
+    }
+    ).then((res) => {
+        const data = res.data.data;
+        sessionStorage.removeItem("visiting-card-data");
+        sessionStorage.setItem("visiting-card-data", JSON.stringify(data));
+        location.replace('manage.html');
+    });
+};
