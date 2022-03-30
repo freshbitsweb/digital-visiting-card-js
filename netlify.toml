@@ -20,3 +20,11 @@
     from = "/fetch-specific-visiting-card"
     to = "/.netlify/functions/getSpecificVisitingCard"
     status = 200
+[[redirects]]
+    from = "/update-visiting-card"
+    to = "/.netlify/functions/updateVisitingCard"
+    status = 200
+[[redirects]]
+    from = "/delete-visiting-card"
+    to = "/.netlify/functions/deleteVisitingCard"
+    status = 200
