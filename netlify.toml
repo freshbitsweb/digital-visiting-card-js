@@ -12,4 +12,11 @@
     from = "/create-new-visiting-card"
     to = "/.netlify/functions/createNewCard"
     status = 200
-    
+[[redirects]]
+    from = "/fetch-visiting-cards"
+    to = "/.netlify/functions/getVisitingCards"
+    status = 200
+[[redirects]]
+    from = "/fetch-specific-visiting-card"
+    to = "/.netlify/functions/getSpecificVisitingCard"
+    status = 200
