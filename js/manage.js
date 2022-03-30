@@ -5,11 +5,15 @@ const githubInput = document.getElementById('github-link');
 const websiteInput = document.getElementById('website');
 const titleInput = document.getElementById('title');
 let fileName = '',
-    phoneNumberTemp = '';
+    fileNameTemp = '',
+    phoneNumberTemp = '',
+    nameTemp;
 const submitButton = document.querySelector("#submit-button");
 const userName = localStorage.getItem('userDirectory');
 const date = new Date();
 const seconds = date.getSeconds();
+const fileNameInput = document.getElementById('file-name');
+let getFileDataResponse = sessionStorage.getItem("visiting-card-data");
 
 const nameValidation = document.getElementById('name-validation');
 const emailValidation = document.getElementById('email-validation');
@@ -22,6 +26,7 @@ let websiteFlag = false;
 let nameFlag = false;
 let phoneNumberFlag = false;
 let githubFlag = false;
+let isFileInUpdateMode = false;
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const nameRegex = /^[a-zA-Z ]{2,30}$/;
@@ -122,7 +127,7 @@ const submitForm = async () => {
         const phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
         const shaName = res.data.data.sha;
 
-        if (!fileName || phoneNumberInput.value != phoneNumberTemp) {
+        if (phoneNumberInput.value != phoneNumberTemp && isFileInUpdateMode) {
             if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
                 phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
                 submitButton.removeAttribute('disabled');
@@ -132,6 +137,17 @@ const submitForm = async () => {
             createNewVisitingCard(shaName, phoneNumberArray);
             return;
         }
+
+        if (nameTemp !== '' && nameTemp != nameInput.value) {
+            phoneNumberArray.forEach((element, index) => {
+                if (element.file_name == fileNameInput.value) {
+                    phoneNumberArray.splice(index, 1);
+                }
+            });
+            deleteVisitingCardData(shaName, phoneNumberArray);
+        }
+
+        updateVisitingCardData(shaName, phoneNumberArray);
     });
 };
 
@@ -169,4 +185,64 @@ const createNewVisitingCard = async (shaName, phoneNumberArray) => {
     ).then(() => {
         updateThePhoneNumber(shaName, phoneNumberArray);
     });
+}
+
+const updateVisitingCardData = async (shaName, phoneNumberArray) => {
+    const jsonData = {
+        'name': nameInput.value,
+        'title': titleInput.value,
+        'email': emailInput.value,
+        'phone_number': phoneNumberInput.value,
+        'website': websiteInput.value,
+        'github': githubInput.value,
+    };
+
+    displayLoading();
+    await axios.post(
+        '/update-visiting-card', {
+            'data': jsonData,
+            'folder_name': userName,
+            'file_name': fileNameInput.value,
+            'sha': sha.value
+        }
+    ).then(() => {
+        localStorage.removeItem('visiting-card-data');
+        updateThePhoneNumber(shaName, phoneNumberArray);
+    });
+}
+
+const deleteVisitingCardData = async (shaName, phoneNumberArray) => {
+    displayLoading();
+    await axios.post(
+        '/delete-visiting-card', {
+            'folder_name': userName,
+            'file_name': fileNameInput.value,
+            'sha': sha.value
+        }
+    ).then(() => {
+        createNewVisitingCard(shaName, phoneNumberArray);
+    });
+}
+
+const displayTheDataInVisitingCard = () => {
+    getFileDataResponse = JSON.parse(getFileDataResponse);
+
+    const fileData = JSON.parse(atob(getFileDataResponse.content));
+
+    fileNameTemp = getFileDataResponse.name;
+    fileNameInput.value = fileNameTemp;
+    sha.value = getFileDataResponse.sha;;
+    nameTemp = fileData.name;
+
+    nameInput.value = fileData.name;
+    titleInput.value = fileData.title ? fileData.title : '';
+    emailInput.value = fileData.email;
+    phoneNumberInput.value = fileData.phone_number;
+    phoneNumberTemp = fileData.phone_number;
+    websiteInput.value = fileData.website;
+    githubInput.value = fileData.github;
+}
+
+if (getFileDataResponse) {
+    displayTheDataInVisitingCard();
 }
