@@ -26,7 +26,6 @@ let websiteFlag = false;
 let nameFlag = false;
 let phoneNumberFlag = false;
 let githubFlag = false;
-let isFileInUpdateMode = false;
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const nameRegex = /^[a-zA-Z ]{2,30}$/;
@@ -121,41 +120,49 @@ const submitForm = async () => {
     displayLoading();
     await axios.post(
         '/fetch-phone-numbers',
-    ).then((res) => {
+    ).then((response) => {
         fileName = (nameInput.value).replace(' ', '_') + '_' + seconds + '.json';
 
-        const phoneNumberArray = JSON.parse(window.atob(res.data.data.content));
-        const shaName = res.data.data.sha;
+        const phoneNumberArray = JSON.parse(window.atob(response.data.data.content));
+        const shaName = response.data.data.sha;
 
-        if (phoneNumberInput.value != phoneNumberTemp && isFileInUpdateMode) {
-            if (phoneNumberArray.includes(parseInt(phoneNumberInput.value))) {
+        if (phoneNumberInput.value != phoneNumberTemp) {
+            if (phoneNumberArray.find(phoneNumber => phoneNumber.phone_number === parseInt(phoneNumberInput.value))) {
                 phoneNumberValidation.innerHTML = 'Phone Number is already taken.';
                 submitButton.removeAttribute('disabled');
                 hideLoading();
+                return;
+            }
+            if (nameTemp && nameTemp !== nameInput.value) {
+                phoneNumberArray.forEach((element, index) => {
+                    if (element.file_name == fileNameInput.value) {
+                        phoneNumberArray.splice(index, 1);
+                    }
+                });
+                deleteVisitingCardData(shaName, phoneNumberArray);
+            }
+            if (fileNameTemp == fileNameInput.value) {
+                phoneNumberArray.forEach((element, index) => {
+                    if (element.file_name == fileNameTemp) {
+                        phoneNumberArray.splice(index, 1);
+                    }
+                });
+                updateVisitingCardData(shaName, phoneNumberArray);
                 return;
             }
             createNewVisitingCard(shaName, phoneNumberArray);
             return;
         }
 
-        if (nameTemp !== '' && nameTemp != nameInput.value) {
-            phoneNumberArray.forEach((element, index) => {
-                if (element.file_name == fileNameInput.value) {
-                    phoneNumberArray.splice(index, 1);
-                }
-            });
-            deleteVisitingCardData(shaName, phoneNumberArray);
-        }
-
-        updateVisitingCardData(shaName, phoneNumberArray);
+        updateVisitingCardData();
     });
 };
 
-const updateThePhoneNumber = async (shaName, phoneNumberArray) => {
+const updateThePhoneNumber = async (shaName, phoneNumberArray, fileNameParameter = fileName) => {
     phoneNumberArray.push(
-        { 'file_name': fileName, 'folder_name': userName, 'phone_number': parseInt(phoneNumberInput.value) }
+        { 'file_name': fileNameParameter, 'folder_name': userName, 'phone_number': parseInt(phoneNumberInput.value) }
     );
-    axios.post(
+    await axios.post(
         '/update-phone-number', {
             'sha': shaName,
             'data': phoneNumberArray
@@ -207,7 +214,10 @@ const updateVisitingCardData = async (shaName, phoneNumberArray) => {
         }
     ).then(() => {
         localStorage.removeItem('visiting-card-data');
-        updateThePhoneNumber(shaName, phoneNumberArray);
+        if (shaName !== '' && phoneNumberArray !== '') {
+            updateThePhoneNumber(shaName, phoneNumberArray, fileNameInput.value);
+        }
+        window.location.href = 'index.html';
     });
 }
 
@@ -241,6 +251,8 @@ const displayTheDataInVisitingCard = () => {
     phoneNumberTemp = fileData.phone_number;
     websiteInput.value = fileData.website;
     githubInput.value = fileData.github;
+
+    document.getElementById('submit-button').innerText = 'Update';
 }
 
 if (getFileDataResponse) {
