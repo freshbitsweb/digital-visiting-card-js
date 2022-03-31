@@ -20,6 +20,7 @@ exports.handler = async function (event, context) {
             headers: {
                 'Authorization': 'Bearer ' + process.env.TOKEN,
                 'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github.v3+json'
             },
             data: data
         }
