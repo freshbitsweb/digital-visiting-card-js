@@ -112,11 +112,14 @@ small {
     width: 2rem;
     height: 2rem;
     border: 5px solid #f3f3f3;
-    border-top: 6px solid #9c41f2;
+    border-top: 4px solid #4665ff;
     border-radius: 100%;
     margin: auto;
     visibility: hidden;
     animation: spin 1s infinite linear;
+    top: 50%;
+    left: 50%;
+    position: fixed;
 }
 
 #loading.display {
