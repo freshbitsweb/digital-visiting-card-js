@@ -13,19 +13,25 @@ const userName = localStorage.getItem('userDirectory');
 const date = new Date();
 const seconds = date.getSeconds();
 const fileNameInput = document.getElementById('file-name');
+const templateTheme1 = document.getElementById('theme-1');
+const templateTheme2 = document.getElementById('theme-2');
+const updateThemeCard = document.getElementById('update-theme-card');
 let getFileDataResponse = sessionStorage.getItem("visiting-card-data");
+let themeSelect = document.getElementById('theme-select');
 
 const nameValidation = document.getElementById('name-validation');
 const emailValidation = document.getElementById('email-validation');
 const phoneNumberValidation = document.getElementById('phone-number-validation');
 const githubValidation = document.getElementById('github-validation');
 const websiteValidation = document.getElementById('website-validation');
+const themeValidation = document.getElementById('theme-validation');
 
 let emailFlag = false;
 let websiteFlag = false;
 let nameFlag = false;
 let phoneNumberFlag = false;
 let githubFlag = false;
+let themeFlag = false;
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const nameRegex = /^[a-zA-Z ]{2,30}$/;
@@ -108,14 +114,27 @@ const checkValidation = () => {
         phoneNumberValidation.innerText = '';
         phoneNumberFlag = true;
     }
+
+    if (themeSelect.value === '') {
+        themeValidation.innerText = 'Please Select Theme';
+        themeFlag = false;
+    }
 };
 
 const submitForm = async () => {
+    livePreviewOfTheme();
     checkValidation();
 
-    if (phoneNumberFlag != true || emailFlag != true || nameFlag != true || websiteFlag != true || githubFlag != true) {
+    if (phoneNumberFlag != true ||
+        emailFlag != true ||
+        nameFlag != true ||
+        websiteFlag != true ||
+        githubFlag != true ||
+        themeFlag != true
+    ) {
         return;
     }
+
     submitButton.setAttribute('disabled', true);
     displayLoading();
     await axios.post(
@@ -176,6 +195,7 @@ const createNewVisitingCard = async (shaName, phoneNumberArray) => {
         'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,
         'github': githubInput.value,
+        'selected_theme': themeSelect.value,
     };
 
     displayLoading();
@@ -198,6 +218,7 @@ const updateVisitingCardData = async (shaName, phoneNumberArray) => {
         'phone_number': phoneNumberInput.value,
         'website': websiteInput.value,
         'github': githubInput.value,
+        'selected_theme': themeSelect.value,
     };
 
     displayLoading();
@@ -230,6 +251,45 @@ const deleteVisitingCardData = async (shaName, phoneNumberArray) => {
     });
 }
 
+const displayCardTheme1 = () => {
+    const theme1 = templateTheme1.content.cloneNode(true);
+
+    theme1.querySelector('.name-theme-1').innerText = nameInput.value;
+    theme1.querySelector('.title-theme-1').innerText = titleInput.value ? titleInput.value : '';
+    theme1.querySelector('.phone-number-theme-1').innerText = phoneNumberInput.value;
+    theme1.querySelector('.email-theme-1').innerText = emailInput.value;
+    theme1.querySelector('.website-theme-1').innerText = websiteInput.value;
+    theme1.querySelector('.github-theme-1').innerText = githubInput.value;
+    updateThemeCard.innerHTML = '';
+    updateThemeCard.append(theme1);
+};
+
+const displayCardTheme2 = () => {
+    const theme2 = templateTheme2.content.cloneNode(true);
+
+    theme2.querySelector('.name').innerText = nameInput.value;
+    theme2.querySelector('.title').innerText = titleInput.value ? titleInput.value : '';
+    theme2.querySelector('.phone-number').innerText = phoneNumberInput.value;
+    theme2.querySelector('.email').innerText = emailInput.value;
+    theme2.querySelector('.website').innerText = websiteInput.value;
+    theme2.querySelector('.github').innerText = githubInput.value;
+    updateThemeCard.innerHTML = '';
+    updateThemeCard.append(theme2);
+};
+
+let livePreviewOfTheme = () => {
+    switch (themeSelect.value) {
+        case 'theme1':
+            displayCardTheme1();
+            break;
+        case 'theme2':
+            displayCardTheme2();
+            break;
+        default:
+            break;
+    }
+}
+
 const displayTheDataInVisitingCard = () => {
     getFileDataResponse = JSON.parse(getFileDataResponse);
 
@@ -247,6 +307,8 @@ const displayTheDataInVisitingCard = () => {
     phoneNumberTemp = fileData.phone_number;
     websiteInput.value = fileData.website;
     githubInput.value = fileData.github;
+    themeSelect.value = fileData.selected_theme;
+    livePreviewOfTheme();
 
     document.getElementById('submit-button').innerText = 'Update';
 }

@@ -137,3 +137,226 @@ small {
     content: '*';
     color: red;
 }
+
+button {
+    display: block;
+    position: relative;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    text-shadow: inherit;
+    cursor: pointer;
+    outline: inherit;
+    z-index: 10;
+}
+
+.theme-1-clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.theme-1-big {
+    font-size: 150%;
+}
+
+.theme-1-card {
+    background-color: #f4f1eb;
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    height: 270px;
+    width: 370px;
+    margin: 20vh auto 0 auto;
+    padding: 20px 10px 10px 10px;
+    transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
+    /*transform-origin: 50% 100%;*/
+    box-shadow: 0;
+    transition: transform .4s ease,
+        box-shadow .4s ease;
+}
+
+.theme-1-card:hover {
+    cursor: pointer;
+    transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg) translateZ(10px);
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, .4);
+}
+
+.theme-1-card:focus {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(10px);
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, .4);
+}
+
+.theme-1-card:focus::before {
+    transform: skewX(0deg) translateX(0px) translateY(0px);
+    height: 0px;
+}
+
+.theme-1-card:focus::after {
+    transform: skewY(0deg) translateX(0px) translateY(0px);
+    width: 0px;
+}
+
+.theme-1-card::before,
+.theme-1-card::after {
+    content: "";
+    position: absolute;
+    display: block;
+    background-color: grey;
+    transition: transform .4s ease,
+        height .4s ease,
+        width .4s ease;
+}
+
+.theme-1-card::before {
+    width: 100%;
+    height: 6px;
+    bottom: 0;
+    left: 0;
+    transform: skewX(45deg) translateX(-3px) translateY(6px);
+}
+
+.theme-1-card::after {
+    height: 100%;
+    width: 6px;
+    top: 0;
+    right: 0;
+    transform: skewY(45deg) translateX(6px) translateY(-3px);
+}
+
+.theme-1-row {
+    display: block;
+    text-align: center;
+}
+
+.theme-1-row:nth-child(2) {
+    margin: 35px 0 50px 0;
+}
+
+.theme-1-left {
+    float: left;
+}
+
+.theme-1-right {
+    float: right;
+}
+
+p {
+    margin: 0;
+}
+
+.theme-3-front-side {
+    width: 390px;
+    height: 260px;
+    display: grid;
+    grid-template-columns: 2% 96% 2%;
+    grid-template-rows: 4% 92% 4%;
+    position: relative;
+    margin: 20px auto;
+    overflow: hidden;
+    box-shadow: 2px 5px 15px 0px #17161694;
+    background-color: #122529;
+}
+
+.theme-3-color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(8, 50px);
+    grid-gap: 8px;
+    width: 150px;
+    height: 400px;
+    transform: rotate(-45deg);
+}
+
+.theme-3-black {
+    background-color: #343536;
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 3;
+}
+
+.theme-3-red1 {
+    background-color: #e45e4f;
+    grid-row: 2 / span 5;
+}
+
+.theme-3-red2 {
+    background-color: #e45e4f;
+    grid-column: 2 / span 2;
+    grid-row: 4/7;
+}
+
+.theme-3-green {
+    background-color: #007e67;
+    grid-column: 2/4;
+    grid-row: 7/9;
+}
+
+.theme-3-info-grid {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.578);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.432);
+    border-radius: 6px;
+    font-size: 0.7rem;
+    /*12px;*/
+    display: grid;
+    grid-template-columns: 15px repeat(3, 1fr) 15px;
+    grid-template-rows: repeat(3, 1fr);
+    line-height: 1px;
+    font-weight: bolder;
+    color: black;
+}
+
+.theme-3-info-grid .theme-3-name {
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 1;
+    font-size: 1.2em;
+    letter-spacing: .1rem;
+    margin-top: 8px;
+}
+
+.theme-3-info-grid .theme-3-name h5 {
+    font-weight: unset;
+}
+
+.theme-3-info-grid .theme-3-phoneNo {
+    grid-column: 3 / span 2;
+    grid-row: 2;
+    text-align: end;
+}
+
+.theme-3-info-grid .theme-3-emailId {
+    grid-column: 3 / span 2;
+    grid-row: 3;
+    text-align: end;
+    font-size: 1.1em;
+}
+
+.theme-3-back-side .theme-3-name-tag {
+    grid-column: 1 / span 4;
+    grid-row: 2 / span 1;
+    align-self: center;
+    z-index: 2;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.363);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.288);
+    font-size: 0.6rem;
+    /*12px;*/
+    letter-spacing: .1rem;
+    text-align: center;
+}
+
+.theme-3-name-tag h1,
+h3 {
+    margin: 2px;
+    font-weight: unset;
+}
