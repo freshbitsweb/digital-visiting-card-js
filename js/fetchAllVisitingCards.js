@@ -2,6 +2,7 @@ const userName = localStorage.getItem('userDirectory');
 const templateWithData = document.getElementById('card-with-data');
 const templateWithoutData = document.getElementById('card-without-data');
 const row = document.getElementById('row');
+let filenames = [];
 
 const fetchAllCards = async () => {
     displayLoading();
@@ -28,9 +29,20 @@ const fetchAllCards = async () => {
         hideLoading();
         allData.forEach(element => {
             displayLoading();
-            axios.post(
+            filenames.push(element.name);
+        });
+        loadMoreSpecificDetailsCard();
+    });
+};
+
+fetchAllCards();
+
+const loadMoreSpecificDetailsCard = async () => {
+    for (let i = filenames.length; i >= 0; i--) {
+        if (i < 2) {
+            await axios.post(
                 'fetch-specific-visiting-card', {
-                file_name: element.name,
+                file_name: filenames[filenames.length - 1],
                 folder_name: userName
             }
             ).then((res) => {
@@ -50,8 +62,7 @@ const fetchAllCards = async () => {
                 card.querySelector('.card-github').href = data.github;
                 row.append(card);
             });
-        });
-    });
-};
-
-fetchAllCards();
+            filenames.pop();
+        }
+    }
+}
