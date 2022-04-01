@@ -133,28 +133,24 @@ const submitForm = async () => {
                 hideLoading();
                 return;
             }
-            if (nameTemp && nameTemp !== nameInput.value) {
-                phoneNumberArray.forEach((element, index) => {
-                    if (element.file_name == fileNameInput.value) {
-                        phoneNumberArray.splice(index, 1);
-                    }
-                });
-                deleteVisitingCardData(shaName, phoneNumberArray);
-            }
-            if (fileNameTemp == fileNameInput.value) {
-                phoneNumberArray.forEach((element, index) => {
-                    if (element.file_name == fileNameTemp) {
-                        phoneNumberArray.splice(index, 1);
-                    }
-                });
-                updateVisitingCardData(shaName, phoneNumberArray);
-                return;
-            }
-            createNewVisitingCard(shaName, phoneNumberArray);
+            phoneNumberArray.forEach((element, index) => {
+                if (element.file_name == fileNameInput.value) {
+                    phoneNumberArray.splice(index, 1);
+                }
+            });
+            deleteVisitingCardData(shaName, phoneNumberArray);
+        } else if (nameTemp && nameTemp !== nameInput.value) {
+            phoneNumberArray.forEach((element, index) => {
+                if (element.file_name == fileNameInput.value) {
+                    phoneNumberArray.splice(index, 1);
+                }
+            });
+            deleteVisitingCardData(shaName, phoneNumberArray);
+        } else if (fileNameTemp == fileNameInput.value && nameTemp == nameInput.value && phoneNumberInput.value == phoneNumberTemp) {
+            updateVisitingCardData();
             return;
         }
-
-        updateVisitingCardData();
+        createNewVisitingCard(shaName, phoneNumberArray);
     });
 };
 
