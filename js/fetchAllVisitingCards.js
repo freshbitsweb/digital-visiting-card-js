@@ -2,6 +2,7 @@ const userName = localStorage.getItem('userDirectory');
 const templateWithData = document.getElementById('card-with-data');
 const templateWithoutData = document.getElementById('card-without-data');
 const row = document.getElementById('row');
+const loadMoreButton = document.getElementById('load-more-button');
 let filenames = [];
 
 const fetchAllCards = async () => {
@@ -64,5 +65,9 @@ const loadMoreSpecificDetailsCard = async () => {
             });
             filenames.pop();
         }
+    }
+
+    if (filenames.length === 0) {
+        loadMoreButton.classList += " d-none";
     }
 }
