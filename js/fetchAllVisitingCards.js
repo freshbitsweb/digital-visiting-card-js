@@ -39,7 +39,7 @@ const fetchAllCards = async () => {
 fetchAllCards();
 
 const loadMoreSpecificDetailsCard = async () => {
-    for (let i = filenames.length; i >= 0; i--) {
+    for (let i = 0; i <= filenames.length; i++) {
         if (i < 2) {
             await axios.post(
                 'fetch-specific-visiting-card', {
