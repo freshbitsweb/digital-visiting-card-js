@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mx-auto">
+            <div class="col-4 mx-auto">
+                <div id="update-theme-card"> </div>
+
+                <template class="theme-1" id="theme-1">
+                    <button class="theme-1-card">
+                        <div class="theme-1-row theme-1-clearfix">
+                            <div class="theme-1-right">
+                                <p class="website-theme-1"> </p>
+                                <p class="theme-1-big phone-number-theme-1"> </p>
+                            </div>
+                        </div>
+
+                        <div class="theme-1-row">
+                            <p class="name-theme-1 h5"> </p>
+                            <p class="title-theme-1 h6"> </p>
+                        </div>
+
+                        <div class="theme-1-row">
+                            <p>
+                                <span class="email-theme-1"> </span> |
+                                <span class="github-theme-1"> </span>
+                            </p>
+                        </div>
+                    </button>
+                </template>
+
+                <template class="theme-2" id="theme-2">
+                    <div class="theme-3-front-side">
+                        <div class="theme-3-color-grid">
+                            <div class="theme-3-black"></div>
+                            <div class="theme-3-red1"></div>
+                            <div class="theme-3-red2"></div>
+                            <div class="theme-3-green"></div>
+                        </div>
+                        <div class="theme-3-info-grid">
+                            <div class="theme-3-name">
+                                <h4 class="name"></h4>
+                                <h6 class="title"> </h6>
+                            </div>
+
+                            <div class="theme-3-phoneNo">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1" viewBox="0 0 472.811 472.811"
+                                    enable-background="new 0 0 472.811 472.811" width="30px" height="30px">
+                                    <g>
+                                        <path
+                                            d="M358.75,0H114.061C97.555,0,84.128,13.428,84.128,29.934v412.944c0,16.505,13.428,29.934,29.934,29.934H358.75   c16.506,0,29.934-13.428,29.934-29.934V29.934C388.683,13.428,375.256,0,358.75,0z M99.128,75.236h274.556v312.687H99.128V75.236z    M114.061,15H358.75c8.234,0,14.934,6.699,14.934,14.934v35.302H99.128V29.934C99.128,21.699,105.827,15,114.061,15z    M358.75,457.811H114.061c-8.234,0-14.934-6.699-14.934-14.934v-44.955h274.556v44.955   C373.683,451.112,366.984,457.811,358.75,457.811z"
+                                            fill="#FFFFFF" />
+                                        <path
+                                            d="m236.406,404.552c-13.545,0-24.564,11.02-24.564,24.565s11.02,24.564 24.564,24.564 24.564-11.02 24.564-24.564-11.019-24.565-24.564-24.565zm0,39.129c-8.031,0-14.564-6.534-14.564-14.564 0-8.031 6.533-14.565 14.564-14.565s14.564,6.534 14.564,14.565c0,8.03-6.533,14.564-14.564,14.564z"
+                                            fill="#FFFFFF" />
+                                        <path
+                                            d="m202.406,47.645h68c2.762,0 5-2.239 5-5s-2.238-5-5-5h-68c-2.762,0-5,2.239-5,5s2.238,5 5,5z"
+                                            fill="#FFFFFF" />
+                                        <path
+                                            d="m184.409,47.645c1.31,0 2.6-0.53 3.53-1.46 0.93-0.94 1.47-2.22 1.47-3.54s-0.54-2.6-1.47-3.54c-0.931-0.93-2.221-1.46-3.53-1.46-1.32,0-2.601,0.53-3.54,1.46-0.93,0.93-1.46,2.22-1.46,3.54s0.53,2.6 1.46,3.54c0.93,0.93 2.22,1.46 3.54,1.46z"
+                                            fill="#FFFFFF" />
+                                    </g>
+                                </svg>
+                                <p class="phone-number mt-3"> </p>
+                            </div>
+
+                            <div class="theme-3-emailId">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1" viewBox="0 0 467.211 467.211"
+                                    enable-background="new 0 0 467.211 467.211" width="30px" height="30px">
+                                    <g>
+                                        <path
+                                            d="m413.917,96.775h-360.622c-6.369,0-11.551,5.181-11.551,11.55v213.182c0,6.369 5.182,11.55 11.551,11.55h360.622c6.368,0 11.55-5.181 11.55-11.55v-213.181c-5.68434e-14-6.369-5.182-11.551-11.55-11.551zm1.55,224.732c0,0.855-0.695,1.55-1.55,1.55h-360.622c-0.855,0-1.551-0.696-1.551-1.55v-213.181c0-0.855 0.695-1.55 1.551-1.55h360.622c0.854,0 1.55,0.696 1.55,1.55v213.181z"
+                                            fill="#FFFFFF" />
+                                        <path
+                                            d="m459.711,340.558h-11.744v-237.715c0-15.752-12.815-28.568-28.568-28.568h-371.586c-15.753,0-28.568,12.815-28.568,28.568v237.714h-11.745c-4.143,0-7.5,3.358-7.5,7.5v20.605c0,13.384 10.889,24.272 24.272,24.272h418.666c13.384,0 24.272-10.889 24.272-24.272v-20.605c0.001-4.141-3.356-7.499-7.499-7.499zm-425.467-237.715c-2.84217e-14-7.481 6.087-13.568 13.568-13.568h371.586c7.481,0 13.568,6.086 13.568,13.568v237.714h-398.722v-237.714zm177.361,252.715h44v3.922c0,1.755-1.428,3.184-3.184,3.184h-37.633c-1.756,0-3.184-1.428-3.184-3.184v-3.922zm240.607,13.105c0,5.113-4.159,9.272-9.272,9.272h-418.667c-5.113,0-9.272-4.16-9.272-9.272v-13.105h11.744 174.861v3.922c0,7.27 5.914,13.184 13.184,13.184h37.633c7.27,0 13.184-5.914 13.184-13.184v-3.922h174.861 11.744v13.105z"
+                                            fill="#FFFFFF" />
+                                    </g>
+                                </svg>
+                                <p class="theme-3-email email mt-3"> </p>
+                                <p class="theme-3-web website mt-3"> </p>
+                                <p class="theme-3-github github my-3"> </p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/card.js"></script>
+</body>
+
+</html>
