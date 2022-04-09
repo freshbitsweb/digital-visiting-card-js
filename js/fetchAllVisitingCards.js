@@ -23,7 +23,7 @@ const fetchAllCards = async () => {
             return;
         } else if (allData.status == 403) {
             const card = templateWithoutData.content.cloneNode(true);
-            
+
             hideLoading();
             loadMoreButton.classList += " d-none";
             card.querySelector('.error-message').innerText = "Something Went Wrong.";
@@ -44,31 +44,32 @@ fetchAllCards();
 
 const loadMoreSpecificDetailsCard = async () => {
     for (let i = 0; i <= filenames.length; i++) {
-        if (i < 2) {
-            await axios.post(
-                'fetch-specific-visiting-card', {
-                file_name: filenames[filenames.length - 1],
-                folder_name: userName
-            }
-            ).then((response) => {
-                hideLoading();
-                const data = JSON.parse(atob(response.data.data.content));
-                const card = templateWithData.content.cloneNode(true);
-
-                card.querySelector('.card-name').innerHTML = data.name;
-                card.querySelector('.card-title').innerHTML = data.title ? data.title : '';
-                card.querySelector('.card-phone').innerHTML = data.phone_number;
-                card.querySelector('.card-phone').href = 'tel:' + data.phone_number;
-                card.querySelector('.card-gmail').innerHTML = data.email;
-                card.querySelector('.card-gmail').href = 'mailto:' + data.email;
-                card.querySelector('.card-website').innerHTML = data.website;
-                card.querySelector('.card-website').href = data.website;
-                card.querySelector('.card-github').innerHTML = data.github;
-                card.querySelector('.card-github').href = data.github;
-                row.append(card);
-            });
-            filenames.pop();
+        if (i > 1) {
+            break;
         }
+        await axios.post(
+            'fetch-specific-visiting-card', {
+            file_name: filenames[filenames.length - 1],
+            folder_name: userName
+        }
+        ).then((response) => {
+            hideLoading();
+            const data = JSON.parse(atob(response.data.data.content));
+            const card = templateWithData.content.cloneNode(true);
+
+            card.querySelector('.card-name').innerHTML = data.name;
+            card.querySelector('.card-title').innerHTML = data.title ? data.title : '';
+            card.querySelector('.card-phone').innerHTML = data.phone_number;
+            card.querySelector('.card-phone').href = 'tel:' + data.phone_number;
+            card.querySelector('.card-gmail').innerHTML = data.email;
+            card.querySelector('.card-gmail').href = 'mailto:' + data.email;
+            card.querySelector('.card-website').innerHTML = data.website;
+            card.querySelector('.card-website').href = data.website;
+            card.querySelector('.card-github').innerHTML = data.github;
+            card.querySelector('.card-github').href = data.github;
+            row.append(card);
+        });
+        filenames.pop();
     }
 
     if (filenames.length === 0) {
