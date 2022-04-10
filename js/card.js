@@ -1,7 +1,8 @@
-let visitingCardData;
+let visitingCardData = sessionStorage.getItem("visiting-card-data");
 const templateTheme1 = document.getElementById('theme-1');
 const templateTheme2 = document.getElementById('theme-2');
 const updateThemeCard = document.getElementById('update-theme-card');
+const queryString = document.location.search.split('?');
 
 const displayCardTheme1 = () => {
     const theme1 = templateTheme1.content.cloneNode(true);
@@ -42,10 +43,9 @@ let livePreviewOfTheme = () => {
     }
 }
 
-livePreviewOfTheme();
-
-const queryString = document.location.search;
-const paramString = queryString.split('?');
+if (visitingCardData && !queryString) {
+    livePreviewOfTheme();
+}
 
 const fetchSpecificCard = async (fileName, folderName) => {
     await axios.post(
@@ -53,8 +53,8 @@ const fetchSpecificCard = async (fileName, folderName) => {
         file_name: fileName,
         folder_name: folderName
     }
-    ).then((res) => {
-        let data = atob(res.data.data.content);
+    ).then((response) => {
+        const data = atob(response.data.data.content);
         sessionStorage.removeItem("visiting-card-data");
         sessionStorage.setItem("visiting-card-data", data);
         livePreviewOfTheme();
@@ -69,7 +69,7 @@ const fetchVisitingCards = async (phoneNumber) => {
             updateThemeCard.innerHTML = '<h2 class="text-center text-danger mt-5">Something Went Wrong.</h2>';
             return;
         }
-        let phoneNumberArray = JSON.parse(window.atob(response.data.data.content));
+        const phoneNumberArray = JSON.parse(window.atob(response.data.data.content));
         phoneNumberArray.forEach(element => {
             if (element.phone_number == phoneNumber) {
                 fetchSpecificCard(element.file_name, element.folder_name);
@@ -80,8 +80,8 @@ const fetchVisitingCards = async (phoneNumber) => {
 }
 
 if (queryString) {
-    for (let i = 0; i < paramString.length; i++) {
-        let pair = paramString[i].split('=');
+    for (let i = 0; i < queryString.length; i++) {
+        const pair = queryString[i].split('=');
         fetchVisitingCards(pair[1]);
     }
 }
