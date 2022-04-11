@@ -7,7 +7,8 @@ exports.handler = async function (event, context) {
             method: 'get',
             url: process.env.GITHUB_URL + '/js/' + folderName + '/',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github.v3+json'
             }
         }
 
