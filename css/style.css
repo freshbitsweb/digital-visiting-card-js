@@ -6,171 +6,101 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-div.business-card {
-    height: 427px;
-    width: 320px;
-    margin-left: -160px;
-    margin-top: -213.5px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    perspective: 1000;
+.display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-div.business-card:hover .flipper,
-div.business-card.hover .flipper {
-    transform: rotateY(180deg) rotateZ(90deg);
+.display .display-item {
+    flex-grow: 1;
+    padding: 15px;
 }
 
-div.flipper {
-    transition: 0.6s;
-    transform-style: preserve-3d;
-    position: relative;
-    transform-origin: center 160px;
+.business-card {
+    width: 420px;
+    height: 230px;
+    max-width: 100%;
+    border-radius: 4px;
+    margin: 0 auto;
 }
 
-div.front,
-div.back {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 427px;
-    width: 320px;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.75);
+.business-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #fff 0%, #fff 50%, rgba(0, 200, 200, 0.4) 50.5%, rgba(0, 200, 200, 0.6) 100%);
+    color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-div.front {
-    background-color: white;
-    z-index: 0;
+.business-card .profile {
+    display: flex;
+    flex-basis: 150px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 15px;
 }
 
-div.front:before,
-div.front:after {
-    display: block;
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-width: 160px;
-    border-style: solid;
-    border-color: transparent;
+.business-card .profile .profile-title {
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-div.front:before {
-    border-top-color: #288FBD;
-    border-left-color: #288FBD;
-    z-index: 2;
+.business-card .profile .profile-title h2 {
+    font-size: 1.4em;
 }
 
-div.front:after {
-    border-top-color: #005D8C;
-    border-right-color: #005D8C;
+.business-card .info {
+    display: flex;
+    flex-grow: 1;
 }
 
-div.front div.name {
-    position: absolute;
-    bottom: 8.5px;
-    left: 85px;
+.business-card .info .info-contact {
+    padding: 15px;
+    display: flex;
+    flex-shrink: 1;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-div.front div.name span {
-    display: block;
-    font-size: 40px;
-    line-height: 45px;
+.business-card .info .info-contact a {
+    color: rgba(0, 0, 0, 0.8);
 }
 
-div.front div.name span.first {
-    color: #005D8C;
+.business-card .info .info-contact i {
+    font-size: 1.2em;
+    width: 25px;
 }
 
-div.front div.name span.last {
-    color: #288FBD;
+.business-card .info .info-bio {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 50%;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
+    text-align: center;
 }
 
-div.front div.name span.title {
-    font-size: 20px;
-    line-height: 20px;
-}
-
-div.back {
-    background-color: #005D8C;
-    color: white;
-    width: 427px;
-    height: 320px;
-    box-sizing: border-box;
-    transform: rotateY(180deg) rotateZ(90deg);
-}
-
-div.back div.container-sm {
-    float: left;
-    width: 40%;
-    height: 100%;
-    position: relative;
-}
-
-div.back div.container-lg {
-    float: left;
-    width: 60%;
-    margin-top: 2rem;
-}
-
-div.back figure.logo-white {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 120px;
-    height: 120px;
-    display: block;
-    margin: -60px -60px;
-}
-
-div.back figure.logo-white:before,
-div.back figure.logo-white:after {
-    display: block;
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-color: transparent;
-}
-
-div.back figure.logo-white:before {
-    top: 0;
-    left: 0;
-    border-width: 60px;
-    border-top-color: white;
-    border-left-color: white;
-    z-index: 2;
-}
-
-div.back figure.logo-white:after {
-    bottom: 0;
-    right: 0;
-    border-width: 56px;
-    border-right-color: white;
-}
-
-div.back a {
-    color: white;
-    text-decoration: none;
+.business-card:hover .card-hover {
     display: block;
 }
 
-div.back a:hover {
-    text-decoration: underline;
+.business-card:hover {
+    background: none;
+    background-color: rgb(141 141 141);
 }
 
-div.back ul.social {
-    font-size: 1.25rem;
+.card-hover {
+    display: none;
 }
 
-div.back ul.social li {
-    margin-top: 1rem;
-}
-
-div.back ul.social li:first-child {
-    margin-top: 2rem;
+.required::after {
+    content: '*';
+    color: red;
+    font-weight: bolder;
 }
 
 small {
