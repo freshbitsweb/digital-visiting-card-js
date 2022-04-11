@@ -60,9 +60,9 @@ const fetchAllCards = async () => {
                     navigator.clipboard.writeText(generatedLink);
                     alertify.success('Link Copied Successfully.');
                 };
-                card.querySelector('.twitter-link').href = 'https://twitter.com/intent/tweet?text=Digital Visiting Card of ' + data.name + '&url=' + generatedLink;
-                card.querySelector('.facebook-link').href = 'https://www.facebook.com/sharer/sharer.php?u=' + generatedLink + '&quote=' + 'Digital Visiting Card of ' + data.name;
-                card.querySelector('.linkedin-link').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + generatedLink;
+                card.querySelector('.twitter-link').href = 'https://twitter.com/intent/tweet?text=Digital Visiting Card of ' + data.name + '&url=' + encodeURI(generatedLink);
+                card.querySelector('.facebook-link').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(generatedLink) + '&quote=' + 'Digital Visiting Card of ' + data.name;
+                card.querySelector('.linkedin-link').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURI(generatedLink);
                 row.append(card);
             });
         });
