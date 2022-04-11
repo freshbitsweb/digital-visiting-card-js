@@ -37,7 +37,7 @@ const fetchAllCards = async () => {
                 hideLoading();
                 const data = JSON.parse(atob(res.data.data.content));
                 const card = templateWithData.content.cloneNode(true);
-                const generatedLink = window.location.href + 'card.html?phone_number='+data.phone_number;
+                const generatedLink = window.location.origin + '/card.html?phone_number=' + data.phone_number;
                 const clickCardButton = card.querySelector('.click-card-button');
                 const clickModalButton = card.querySelector('.social-modal-box');
 
@@ -60,7 +60,7 @@ const fetchAllCards = async () => {
                     navigator.clipboard.writeText(generatedLink);
                     alertify.success('Link Copied Successfully.');
                 };
-                card.querySelector('.twitter-link').href = 'https://twitter.com/intent/tweet?text=Digital Visiting Card of ' + data.name + ' &url=' + generatedLink;
+                card.querySelector('.twitter-link').href = 'https://twitter.com/intent/tweet?text=Digital Visiting Card of ' + data.name + '&url=' + generatedLink;
                 card.querySelector('.facebook-link').href = 'https://www.facebook.com/sharer/sharer.php?u=' + generatedLink + '&quote=' + 'Digital Visiting Card of ' + data.name;
                 card.querySelector('.linkedin-link').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + generatedLink;
                 row.append(card);
