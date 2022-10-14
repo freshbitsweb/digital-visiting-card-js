@@ -4,17 +4,17 @@ const base64 = require("base-64");
 exports.handler = async function (event, context) {
     try {
         const eventBody = JSON.parse(event.body);
-        const phoneNumberData = eventBody.data;
+        const folderName = eventBody.folder_name;
+        const fileName = eventBody.file_name;
         const sha = eventBody.sha;
         const data = JSON.stringify({
-            "message": "update the phone number list...",
-            "content": base64.encode(JSON.stringify(phoneNumberData)),
+            "message": "delete the file",
             "sha": sha
         });
 
         const config = {
-            method: 'put',
-            url: process.env.GITHUB_URL + '/js/validate_phone_numbers.json',
+            method: 'delete',
+            url: process.env.GITHUB_URL + '/js/' + folderName + '/' + fileName,
             headers: {
                 'Authorization': 'Bearer ' + process.env.TOKEN,
                 'Content-Type': 'application/json',
@@ -36,9 +36,7 @@ exports.handler = async function (event, context) {
         return {
             statusCode: 201,
             body: JSON.stringify({
-                msg: (responseMessage.data.content.name == 'validate_phone_numbers.json') ?
-                    "Successfully Phone Number Lists Updated" :
-                    "Something Went Wrong",
+                msg: (responseMessage.status === 200) ? "Successfully File Deleted" : "Something Went Wrong",
             }),
         };
     } catch (err) {

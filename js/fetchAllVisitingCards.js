@@ -42,6 +42,21 @@ const fetchAllCards = async () => {
 
 fetchAllCards();
 
+const editTheFileData = async (fileName) => {
+    displayLoading();
+    await axios.post(
+        '/fetch-specific-visiting-card', {
+        file_name: fileName,
+        folder_name: userName
+    }
+    ).then((res) => {
+        const data = res.data.data;
+        sessionStorage.removeItem("visiting-card-data");
+        sessionStorage.setItem("visiting-card-data", JSON.stringify(data));
+        location.replace('manage.html');
+    });
+};
+
 const loadMoreSpecificDetailsCard = async () => {
     for (let i = 0; i <= filenames.length; i++) {
         if (i > 1) {
@@ -56,6 +71,7 @@ const loadMoreSpecificDetailsCard = async () => {
             hideLoading();
             const data = JSON.parse(atob(response.data.data.content));
             const card = templateWithData.content.cloneNode(true);
+            const filename = filenames[filenames.length - 1];
 
             card.querySelector('.card-name').innerHTML = data.name;
             card.querySelector('.card-title').innerHTML = data.title ? data.title : '';
@@ -67,6 +83,9 @@ const loadMoreSpecificDetailsCard = async () => {
             card.querySelector('.card-website').href = data.website;
             card.querySelector('.card-github').innerHTML = data.github;
             card.querySelector('.card-github').href = data.github;
+            card.querySelector('.edit-card-button').onclick = function () {
+                editTheFileData(filename);
+            }
             row.append(card);
         });
         filenames.pop();
